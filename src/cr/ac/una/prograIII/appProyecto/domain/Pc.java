@@ -1,0 +1,44 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package cr.ac.una.prograIII.appProyecto.domain;
+
+/**
+ *
+ * @author Anthony Carrillo
+ */
+public class Pc extends javax.swing.JButton implements Runnable {
+    private int numero;
+
+    public Pc() {
+    }
+
+    public Pc(int numero) {
+        this.numero = numero;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+        this.setVisible(true);
+        this.setSize(90, 90);
+        
+        
+    }
+    
+    
+    
+
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+
+}
