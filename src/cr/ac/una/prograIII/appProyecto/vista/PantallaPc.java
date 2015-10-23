@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cr.ac.una.prograIII.appProyecto.vista1;
+package cr.ac.una.prograIII.appProyecto.vista;
 
 /**
  *
@@ -14,8 +14,11 @@ public class PantallaPc extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPc
      */
-    public PantallaPc() {
+    int numero;
+    public PantallaPc(int numero) {
         initComponents();
+        this.numero=numero;
+        txtNumeroPc.setText(""+numero);
     }
 
     /**
@@ -245,7 +248,7 @@ public class PantallaPc extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaPc().setVisible(true);
+                new PantallaPc(0).setVisible(true);
             }
         });
     }
