@@ -5,6 +5,8 @@
  */
 package cr.ac.una.prograIII.appProyecto.domain;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Anthony Carrillo
@@ -13,10 +15,15 @@ public class Pc extends javax.swing.JButton implements Runnable {
     private int numero;
 
     public Pc() {
+        System.out.println("eee");
     }
 
     public Pc(int numero) {
         this.numero = numero;
+        this.setVisible(true);
+        this.setSize(90, 90);
+        ImageIcon iconolbl = new ImageIcon("src/cr/ac/una/prograIII/appProyecto/vista/imagenes/monitor.png");
+        this.setIcon(iconolbl);
     }
 
     public int getNumero() {
@@ -25,8 +32,8 @@ public class Pc extends javax.swing.JButton implements Runnable {
 
     public void setNumero(int numero) {
         this.numero = numero;
-        this.setVisible(true);
-        this.setSize(90, 90);
+        
+        
         
         
     }

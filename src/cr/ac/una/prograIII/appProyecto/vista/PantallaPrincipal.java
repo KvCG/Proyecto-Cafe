@@ -295,6 +295,8 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
                 PantallaPrincipal p = new PantallaPrincipal();
                 p.setVisible(true);
                 p.setResizable(false);
+                p.cargaPc.setVisible(false);
+                
                 
             }
         });
