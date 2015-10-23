@@ -40,6 +40,7 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
     int c=0;
     boolean primeravez=true;
     int agregados=0;
+    public int num=-1;
     /**
      * Creates new form PantallaPrincipal
      */
@@ -336,14 +337,17 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
             int ejey=40;
             int inix=0;
             int iniy=0;
+            
             if(primeravez){
         for(int x=0;x<lista.size();x++){
+            num=x;
             lista.get(x).addActionListener(new ActionListener() {
-
+                
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Pc actual= (Pc) e.getSource();
-                    JOptionPane.showMessageDialog(rootPane, "Click");
+                    PantallaPc p= new PantallaPc(num);
+                    p.setVisible(true);
                 }
             });
             lista.get(x).setVisible(true);
@@ -358,12 +362,16 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
         }   
         }else{
                 for(int x=lista.size()-agregados;x<lista.size();x++){
+                    num=x;
             lista.get(x).addActionListener(new ActionListener() {
-
+                
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    
                     Pc actual= (Pc) e.getSource();
-                    JOptionPane.showMessageDialog(rootPane, "Click");
+                    PantallaPc compu = new PantallaPc(num);
+                    compu.setVisible(true);
+                    
                 }
             });
             lista.get(x).setVisible(true);
