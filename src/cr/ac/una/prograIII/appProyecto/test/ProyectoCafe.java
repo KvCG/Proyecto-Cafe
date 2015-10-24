@@ -5,7 +5,9 @@
  */
 package cr.ac.una.prograIII.appProyecto.test;
 
+import cr.ac.una.prograIII.appProyecto.controlador.IncioControlador;
 import cr.ac.una.prograIII.appProyecto.vista.PantallaPrincipal;
+import cr.ac.una.prograIII.appProyecto.vista1.PantallaInicio;
 
 
 /**
@@ -15,8 +17,10 @@ import cr.ac.una.prograIII.appProyecto.vista.PantallaPrincipal;
 public class ProyectoCafe {
 
     public static void main(String[] args) {
-        PantallaPrincipal pp = new PantallaPrincipal();
-        pp.setVisible(true);
+        PantallaInicio pp = new PantallaInicio();
+        IncioControlador i = new IncioControlador(pp);
+        i.getPantInicio().setVisible(true);
+        
 //        ManteCliente manteClienteView = new ManteCliente();
 //        ClienteBL clienteBLModelo = new ClienteBL();
 //        ClienteControlador cC = new ClienteControlador(manteClienteView, clienteBLModelo);
