@@ -18,8 +18,10 @@ import cr.ac.una.prograIII.appProyecto.bl.ProveedorBL;
 import cr.ac.una.prograIII.appProyecto.controlador.ArtProvControlador;
 import cr.ac.una.prograIII.appProyecto.controlador.ArticuloControlador;
 import cr.ac.una.prograIII.appProyecto.controlador.ClienteControlador;
+import cr.ac.una.prograIII.appProyecto.controlador.ClienteThreadControlador;
 import cr.ac.una.prograIII.appProyecto.controlador.PcControlador;
 import cr.ac.una.prograIII.appProyecto.controlador.ProveedorControlador;
+import cr.ac.una.prograIII.appProyecto.controlador.ServidorControlador;
 import cr.ac.una.prograIII.appProyecto.domain.Pc;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -48,6 +50,7 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
         initComponents();
         this.setLayout(null);
         this.cargaPc.addActionListener(this);
+        this.cargaPc.setVisible(false);
         
         
         /*JButton bt=new JButton();
@@ -78,6 +81,7 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
         jButton1 = new javax.swing.JButton();
         jMenuItem3 = new javax.swing.JMenuItem();
         cargaPc = new javax.swing.JButton();
+        btServidor = new javax.swing.JButton();
         MenuBarPrincipal = new javax.swing.JMenuBar();
         MenuMatenimiento = new javax.swing.JMenu();
         MnuItemCliente = new javax.swing.JMenuItem();
@@ -114,6 +118,15 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
         cargaPc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cargaPcActionPerformed(evt);
+            }
+        });
+
+        btServidor.setFont(new java.awt.Font("Traditional Arabic", 2, 10)); // NOI18N
+        btServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/server.png"))); // NOI18N
+        btServidor.setText("Servidor");
+        btServidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btServidorActionPerformed(evt);
             }
         });
 
@@ -207,14 +220,18 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(cargaPc)
-                .addGap(0, 326, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btServidor)
+                    .addComponent(cargaPc))
+                .addGap(0, 428, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(cargaPc)
-                .addGap(0, 244, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
+                .addComponent(btServidor)
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -259,6 +276,12 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
     private void cargaPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargaPcActionPerformed
         
     }//GEN-LAST:event_cargaPcActionPerformed
+
+    private void btServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btServidorActionPerformed
+        PantallaServidor pantallaServidorView= new PantallaServidor();
+        ServidorControlador serverControl =new ServidorControlador(pantallaServidorView);
+        serverControl.getPantallaServidorView().setVisible(true);
+    }//GEN-LAST:event_btServidorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,6 +336,7 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenuItem MnuItemCliente;
     private javax.swing.JMenuItem MnuItemPc;
     private javax.swing.JMenuItem MnuItemProveedor;
+    private javax.swing.JButton btServidor;
     public javax.swing.JButton cargaPc;
     private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu13;
@@ -346,8 +370,9 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Pc actual= (Pc) e.getSource();
-                    PantallaPc p= new PantallaPc(num);
-                    p.setVisible(true);
+                    VentanaPc ventanaPcview=new VentanaPc();
+                    ClienteThreadControlador clienteThreadControlador=new ClienteThreadControlador(ventanaPcview);
+                    clienteThreadControlador.getVentanaPcView().setVisible(true);
                 }
             });
             lista.get(x).setVisible(true);
@@ -369,8 +394,9 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
                 public void actionPerformed(ActionEvent e) {
                     
                     Pc actual= (Pc) e.getSource();
-                    PantallaPc compu = new PantallaPc(num);
-                    compu.setVisible(true);
+                    VentanaPc ventanaPcview=new VentanaPc();
+                    ClienteThreadControlador clienteThreadControlador=new ClienteThreadControlador(ventanaPcview);
+                    clienteThreadControlador.getVentanaPcView().setVisible(true);
                     
                 }
             });
