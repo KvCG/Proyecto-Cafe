@@ -5,8 +5,6 @@
  */
 package cr.ac.una.prograIII.appProyecto.vista;
 
-import cr.ac.una.prograIII.appProyecto.controlador.BloqueoControlador;
-
 /**
  *
  * @author Kevin
