@@ -42,7 +42,8 @@ public class IncioControlador implements ActionListener {
             char[] pass = this.pantInicio.txtPass.getPassword();
             if (this.pantInicio.txtUsuario.getText().equals("TK") && Arrays.equals(passCorrecta, pass) ) {
                 PantallaPrincipal pp = new PantallaPrincipal();
-                pp.setVisible(true);
+                PantallaPrincipalControlador pantaPC =  new PantallaPrincipalControlador(pp);
+                pantaPC.getPantallaPrinView().setVisible(true);
                 this.pantInicio.dispose();
             }else{
                 JOptionPane.showMessageDialog(this.pantInicio, "Usuario o contraseña invalidos", "Error", JOptionPane.ERROR_MESSAGE);

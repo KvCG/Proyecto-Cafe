@@ -4,63 +4,15 @@
  * and open the template in the editor.
  */
 package cr.ac.una.prograIII.appProyecto.vista;
-import cr.ac.una.prograIII.appProyecto.bl.ArtProvBL;
-import cr.ac.una.prograIII.appProyecto.bl.ClienteBL;
-import cr.ac.una.prograIII.appProyecto.controlador.ArtProvControlador;
-import cr.ac.una.prograIII.appProyecto.controlador.ClienteControlador;
-import cr.ac.una.prograIII.appProyecto.vista.ManteArtProv;
-import cr.ac.una.prograIII.appProyecto.vista.PantallaPrincipal;
-import cr.ac.una.prograIII.appProyecto.vista1.ManteCliente;
-import cr.ac.una.prograIII.appProyecto.bl.ArtProvBL;
-import cr.ac.una.prograIII.appProyecto.bl.ArticuloBL;
-import cr.ac.una.prograIII.appProyecto.bl.ClienteBL;
-import cr.ac.una.prograIII.appProyecto.bl.ProveedorBL;
-import cr.ac.una.prograIII.appProyecto.controlador.ArtProvControlador;
-import cr.ac.una.prograIII.appProyecto.controlador.ArticuloControlador;
-import cr.ac.una.prograIII.appProyecto.controlador.ClienteControlador;
-import cr.ac.una.prograIII.appProyecto.controlador.ClienteThreadControlador;
-import cr.ac.una.prograIII.appProyecto.controlador.PcControlador;
-import cr.ac.una.prograIII.appProyecto.controlador.ProveedorControlador;
-import cr.ac.una.prograIII.appProyecto.controlador.ServidorControlador;
-import cr.ac.una.prograIII.appProyecto.domain.Pc;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Kevin
  */
-public class PantallaPrincipal extends javax.swing.JFrame implements ActionListener {
-    ArrayList<Pc> lista= new ArrayList();
-    int c=0;
-    boolean primeravez=true;
-    int agregados=0;
-    public int num=-1;
-    /**
-     * Creates new form PantallaPrincipal
-     */
-    public PantallaPrincipal() {
+public class PantallaPrincipal extends javax.swing.JFrame  {
+           
+     public PantallaPrincipal() {
         initComponents();
-        this.setLayout(null);
-        this.cargaPc.addActionListener(this);
-        this.cargaPc.setVisible(false);
-        
-        
-        /*JButton bt=new JButton();
-        bt.setText("hola");
-        bt.setVisible(true);
-        bt.setBounds(30,25,100,30);
-        
-        add(bt);*/
-        
-        
     }
     
     
@@ -82,15 +34,27 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
         jMenuItem3 = new javax.swing.JMenuItem();
         cargaPc = new javax.swing.JButton();
         btServidor = new javax.swing.JButton();
+        btUsuariosEnLinea = new javax.swing.JButton();
+        btLimpiarPantalla = new javax.swing.JButton();
+        btIniciarServidor = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTPC = new javax.swing.JTable();
+        btDetenerServidor = new javax.swing.JButton();
+        btBloquear = new javax.swing.JButton();
+        btDesbloquear = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        txtMensaje = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Chat_Servidor = new javax.swing.JTextArea();
         MenuBarPrincipal = new javax.swing.JMenuBar();
-        MenuMatenimiento = new javax.swing.JMenu();
-        MnuItemCliente = new javax.swing.JMenuItem();
-        MnuItemArticulo = new javax.swing.JMenuItem();
-        MnuItemProveedor = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        MnuItemPc = new javax.swing.JMenuItem();
+        menuMantenimientos = new javax.swing.JMenu();
+        menuManteCliente = new javax.swing.JMenuItem();
+        menuManteArticulo = new javax.swing.JMenuItem();
+        menuManteProveedor = new javax.swing.JMenuItem();
+        menuManteArtProv = new javax.swing.JMenuItem();
         MenuFacturacion = new javax.swing.JMenu();
-        jMenuItem23 = new javax.swing.JMenuItem();
+        menuFacturar = new javax.swing.JMenuItem();
         MenuBuscar = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -130,60 +94,116 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
             }
         });
 
+        btUsuariosEnLinea.setText("Usuarios en linea");
+        btUsuariosEnLinea.setPreferredSize(new java.awt.Dimension(115, 23));
+        btUsuariosEnLinea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btUsuariosEnLineaActionPerformed(evt);
+            }
+        });
+
+        btLimpiarPantalla.setText("Limpiar pantalla");
+        btLimpiarPantalla.setPreferredSize(new java.awt.Dimension(115, 23));
+        btLimpiarPantalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLimpiarPantallaActionPerformed(evt);
+            }
+        });
+
+        btIniciarServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/chronometer.png"))); // NOI18N
+        btIniciarServidor.setText("Iniciar ");
+
+        jTPC.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "IP", "Estado", "Hora Inicio", "Hora Fin"
+            }
+        ));
+        jScrollPane2.setViewportView(jTPC);
+
+        btDetenerServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/media_playback_stop.png"))); // NOI18N
+        btDetenerServidor.setText("Detener ");
+
+        btBloquear.setIcon(new javax.swing.ImageIcon("D:\\Descargas\\U\\Iconos para proyectos\\1445654832_locked.png")); // NOI18N
+        btBloquear.setText("Bloquear");
+
+        btDesbloquear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/unlock.png"))); // NOI18N
+        btDesbloquear.setText("Desbloquear");
+        btDesbloquear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDesbloquearActionPerformed(evt);
+            }
+        });
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/mail.png"))); // NOI18N
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        txtMensaje.setText("Mensaje");
+        txtMensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMensajeActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Facturar");
+
+        Chat_Servidor.setEditable(false);
+        Chat_Servidor.setColumns(20);
+        Chat_Servidor.setRows(5);
+        jScrollPane1.setViewportView(Chat_Servidor);
+
         MenuBarPrincipal.setBackground(new java.awt.Color(0, 0, 0));
 
-        MenuMatenimiento.setText("Mantenimientos");
+        menuMantenimientos.setText("Mantenimientos");
 
-        MnuItemCliente.setBackground(new java.awt.Color(255, 255, 255));
-        MnuItemCliente.setText("Cliente");
-        MnuItemCliente.addActionListener(new java.awt.event.ActionListener() {
+        menuManteCliente.setBackground(new java.awt.Color(255, 255, 255));
+        menuManteCliente.setText("Cliente");
+        menuManteCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnuItemClienteActionPerformed(evt);
+                menuManteClienteActionPerformed(evt);
             }
         });
-        MenuMatenimiento.add(MnuItemCliente);
+        menuMantenimientos.add(menuManteCliente);
 
-        MnuItemArticulo.setBackground(new java.awt.Color(255, 255, 255));
-        MnuItemArticulo.setText("Articulo");
-        MnuItemArticulo.addActionListener(new java.awt.event.ActionListener() {
+        menuManteArticulo.setBackground(new java.awt.Color(255, 255, 255));
+        menuManteArticulo.setText("Articulo");
+        menuManteArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnuItemArticuloActionPerformed(evt);
+                menuManteArticuloActionPerformed(evt);
             }
         });
-        MenuMatenimiento.add(MnuItemArticulo);
+        menuMantenimientos.add(menuManteArticulo);
 
-        MnuItemProveedor.setBackground(new java.awt.Color(255, 255, 255));
-        MnuItemProveedor.setText("Proveedor");
-        MnuItemProveedor.addActionListener(new java.awt.event.ActionListener() {
+        menuManteProveedor.setBackground(new java.awt.Color(255, 255, 255));
+        menuManteProveedor.setText("Proveedor");
+        menuManteProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnuItemProveedorActionPerformed(evt);
+                menuManteProveedorActionPerformed(evt);
             }
         });
-        MenuMatenimiento.add(MnuItemProveedor);
+        menuMantenimientos.add(menuManteProveedor);
 
-        jMenuItem1.setBackground(new java.awt.Color(255, 255, 255));
-        jMenuItem1.setText("Articulo por Proveedor");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuManteArtProv.setBackground(new java.awt.Color(255, 255, 255));
+        menuManteArtProv.setText("Articulo por Proveedor");
+        menuManteArtProv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuManteArtProvActionPerformed(evt);
             }
         });
-        MenuMatenimiento.add(jMenuItem1);
+        menuMantenimientos.add(menuManteArtProv);
 
-        MnuItemPc.setText("PC");
-        MnuItemPc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnuItemPcActionPerformed(evt);
-            }
-        });
-        MenuMatenimiento.add(MnuItemPc);
-
-        MenuBarPrincipal.add(MenuMatenimiento);
+        MenuBarPrincipal.add(menuMantenimientos);
 
         MenuFacturacion.setText("Facturacion");
 
-        jMenuItem23.setText("Facturar");
-        MenuFacturacion.add(jMenuItem23);
+        menuFacturar.setText("Facturar");
+        MenuFacturacion.add(menuFacturar);
 
         MenuBarPrincipal.add(MenuFacturacion);
 
@@ -220,68 +240,126 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btServidor)
-                    .addComponent(cargaPc))
-                .addGap(0, 428, Short.MAX_VALUE))
+                .addContainerGap(309, Short.MAX_VALUE)
+                .addComponent(btServidor)
+                .addGap(30, 30, 30)
+                .addComponent(cargaPc)
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btLimpiarPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btDesbloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btIniciarServidor))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btBloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                            .addComponent(btUsuariosEnLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(btDetenerServidor)))))
+                    .addContainerGap(12, Short.MAX_VALUE)))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btBloquear, btDesbloquear, btDetenerServidor, btIniciarServidor});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(cargaPc)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
-                .addComponent(btServidor)
-                .addGap(24, 24, 24))
+                .addContainerGap(450, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cargaPc)
+                    .addComponent(btServidor))
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btDesbloquear)
+                            .addGap(16, 16, 16)
+                            .addComponent(btIniciarServidor))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btBloquear)
+                                    .addComponent(btUsuariosEnLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButton6))
+                            .addGap(16, 16, 16)
+                            .addComponent(btDetenerServidor)))
+                    .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btLimpiarPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtMensaje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap()))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btBloquear, btDesbloquear, btDetenerServidor, btIniciarServidor});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MnuItemClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuItemClienteActionPerformed
-        ManteCliente manteClienteView = new ManteCliente();
-        ClienteBL clienteBLModelo = new ClienteBL();
-        ClienteControlador cC = new ClienteControlador(manteClienteView, clienteBLModelo);
-        cC.getMantClienteView().setVisible(true);
-    }//GEN-LAST:event_MnuItemClienteActionPerformed
+    private void menuManteClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManteClienteActionPerformed
+    
+    }//GEN-LAST:event_menuManteClienteActionPerformed
 
-    private void MnuItemArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuItemArticuloActionPerformed
-        ManteArticulo mateArticuloview = new ManteArticulo();
-        ArticuloBL articuloBlModelo = new ArticuloBL();
-        ArticuloControlador articuloc = new ArticuloControlador(mateArticuloview, articuloBlModelo);
-        articuloc.getMantArticuloView().setVisible(true);
-    }//GEN-LAST:event_MnuItemArticuloActionPerformed
-
-    private void MnuItemProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuItemProveedorActionPerformed
-        ManteProveedor manteProveedorView = new ManteProveedor();
-        ProveedorBL proveedorBlModelo = new ProveedorBL();
-        ProveedorControlador provControlador = new ProveedorControlador(manteProveedorView, proveedorBlModelo);
-        provControlador.getMantProveedorView().setVisible(true);
-    }//GEN-LAST:event_MnuItemProveedorActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        ManteArtProv manteAp = new ManteArtProv();
-        ArtProvBL apBL = new ArtProvBL();
-        ArtProvControlador apc = new ArtProvControlador(manteAp, apBL);
-        apc.getManteArtProvView().setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void MnuItemPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnuItemPcActionPerformed
-        MantePc mantPc=new MantePc();
-        c=lista.size();
-        PcControlador pcControl= new PcControlador(mantPc, lista, c,this);
-        pcControl.getMantPc().setVisible(true);
+    private void menuManteArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManteArticuloActionPerformed
         
-    }//GEN-LAST:event_MnuItemPcActionPerformed
+    }//GEN-LAST:event_menuManteArticuloActionPerformed
+
+    private void menuManteProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManteProveedorActionPerformed
+        
+    }//GEN-LAST:event_menuManteProveedorActionPerformed
+
+    private void menuManteArtProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManteArtProvActionPerformed
+                // TODO add your handling code here:
+    }//GEN-LAST:event_menuManteArtProvActionPerformed
 
     private void cargaPcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargaPcActionPerformed
         
     }//GEN-LAST:event_cargaPcActionPerformed
 
     private void btServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btServidorActionPerformed
-        PantallaServidor pantallaServidorView= new PantallaServidor();
-        ServidorControlador serverControl =new ServidorControlador(pantallaServidorView);
-        serverControl.getPantallaServidorView().setVisible(true);
+
     }//GEN-LAST:event_btServidorActionPerformed
+
+    private void btUsuariosEnLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUsuariosEnLineaActionPerformed
+
+    }//GEN-LAST:event_btUsuariosEnLineaActionPerformed
+
+    private void btLimpiarPantallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarPantallaActionPerformed
+
+    }//GEN-LAST:event_btLimpiarPantallaActionPerformed
+
+    private void btDesbloquearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDesbloquearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btDesbloquearActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void txtMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMensajeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMensajeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -319,26 +397,29 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
                 PantallaPrincipal p = new PantallaPrincipal();
                 p.setVisible(true);
                 p.setResizable(false);
-                p.cargaPc.setVisible(false);
-                
+                          
                 
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextArea Chat_Servidor;
     private javax.swing.JMenuBar MenuBarPrincipal;
     private javax.swing.JMenu MenuBuscar;
     private javax.swing.JMenu MenuFacturacion;
-    private javax.swing.JMenu MenuMatenimiento;
     private javax.swing.JMenu MenuReportes;
-    private javax.swing.JMenuItem MnuItemArticulo;
-    private javax.swing.JMenuItem MnuItemCliente;
-    private javax.swing.JMenuItem MnuItemPc;
-    private javax.swing.JMenuItem MnuItemProveedor;
+    public javax.swing.JButton btBloquear;
+    public javax.swing.JButton btDesbloquear;
+    public javax.swing.JButton btDetenerServidor;
+    public javax.swing.JButton btIniciarServidor;
+    public javax.swing.JButton btLimpiarPantalla;
     private javax.swing.JButton btServidor;
+    public javax.swing.JButton btUsuariosEnLinea;
     public javax.swing.JButton cargaPc;
     private javax.swing.JButton jButton1;
+    public javax.swing.JButton jButton5;
+    public javax.swing.JButton jButton6;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu16;
@@ -346,73 +427,21 @@ public class PantallaPrincipal extends javax.swing.JFrame implements ActionListe
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem3;
+    public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JTable jTPC;
+    private javax.swing.JMenuItem menuFacturar;
+    public javax.swing.JMenuItem menuManteArtProv;
+    public javax.swing.JMenuItem menuManteArticulo;
+    public javax.swing.JMenuItem menuManteCliente;
+    public javax.swing.JMenuItem menuManteProveedor;
+    public javax.swing.JMenu menuMantenimientos;
+    public javax.swing.JTextField txtMensaje;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==cargaPc){
-            int ejex=50;
-            int ejey=40;
-            int inix=0;
-            int iniy=0;
-            
-            if(primeravez){
-        for(int x=0;x<lista.size();x++){
-            num=x;
-            lista.get(x).addActionListener(new ActionListener() {
-                
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Pc actual= (Pc) e.getSource();
-                    VentanaPc ventanaPcview=new VentanaPc();
-                    ClienteThreadControlador clienteThreadControlador=new ClienteThreadControlador(ventanaPcview);
-                    clienteThreadControlador.getVentanaPcView().setVisible(true);
-                }
-            });
-            lista.get(x).setVisible(true);
-            lista.get(x).setBounds(inix+ejex,iniy+ejey,100,30);
-            inix+=ejex;
-            iniy+=ejey;
-            
-            this.add(lista.get(x));
-            JOptionPane.showMessageDialog(rootPane, "Lo hizo");
-            agregados++;
-            primeravez=false;
-        }   
-        }else{
-                for(int x=lista.size()-agregados;x<lista.size();x++){
-                    num=x;
-            lista.get(x).addActionListener(new ActionListener() {
-                
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    
-                    Pc actual= (Pc) e.getSource();
-                    VentanaPc ventanaPcview=new VentanaPc();
-                    ClienteThreadControlador clienteThreadControlador=new ClienteThreadControlador(ventanaPcview);
-                    clienteThreadControlador.getVentanaPcView().setVisible(true);
-                    
-                }
-            });
-            lista.get(x).setVisible(true);
-            lista.get(x).setBounds(inix+ejex,iniy+ejey,50,50);
-            inix+=ejex;
-            iniy+=ejey;
-            
-            this.add(lista.get(x));
-            JOptionPane.showMessageDialog(rootPane, "Lo hizo");
-            agregados++;
-        }   
-            
-                
-            }
-        }
-        
-    }
+    
 }

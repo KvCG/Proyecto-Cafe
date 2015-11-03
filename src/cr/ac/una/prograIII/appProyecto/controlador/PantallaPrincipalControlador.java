@@ -5,7 +5,15 @@
  */
 package cr.ac.una.prograIII.appProyecto.controlador;
 
-import cr.ac.una.prograIII.appProyecto.vista.PantallaServidor;
+import cr.ac.una.prograIII.appProyecto.bl.ArtProvBL;
+import cr.ac.una.prograIII.appProyecto.bl.ArticuloBL;
+import cr.ac.una.prograIII.appProyecto.bl.ClienteBL;
+import cr.ac.una.prograIII.appProyecto.bl.ProveedorBL;
+import cr.ac.una.prograIII.appProyecto.vista.ManteArtProv;
+import cr.ac.una.prograIII.appProyecto.vista.ManteArticulo;
+import cr.ac.una.prograIII.appProyecto.vista.ManteProveedor;
+import cr.ac.una.prograIII.appProyecto.vista.PantallaPrincipal;
+import cr.ac.una.prograIII.appProyecto.vista1.ManteCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -21,70 +29,102 @@ import javax.swing.table.TableColumnModel;
 
 /**
  *
- * @author Anthony Carrillo
+ * @author Kevin
  */
-public class ServidorControlador implements ActionListener {
+public class PantallaPrincipalControlador implements ActionListener {
 
-    public PantallaServidor pantallaServidorView;
+    private PantallaPrincipal PantallaPrinView;
 
-    public PantallaServidor getPantallaServidorView() {
-        return pantallaServidorView;
+    public PantallaPrincipalControlador(PantallaPrincipal PantallaPrinView) {
+        this.PantallaPrinView = PantallaPrinView;
+        this.PantallaPrinView.btLimpiarPantalla.addActionListener(this);
+        this.PantallaPrinView.btUsuariosEnLinea.addActionListener(this);
+        this.PantallaPrinView.btIniciarServidor.addActionListener(this);
+        this.PantallaPrinView.btDetenerServidor.addActionListener(this);
+        this.PantallaPrinView.btDesbloquear.addActionListener(this);
+        this.PantallaPrinView.btBloquear.addActionListener(this);
+        this.PantallaPrinView.menuManteCliente.addActionListener(this);
+        this.PantallaPrinView.menuManteArticulo.addActionListener(this);
+        this.PantallaPrinView.menuManteArtProv.addActionListener(this);
+        this.PantallaPrinView.menuManteProveedor.addActionListener(this);
     }
 
-    public void setPantallaServidorView(PantallaServidor pantallaServidorView) {
-        this.pantallaServidorView = pantallaServidorView;
+    public PantallaPrincipal getPantallaPrinView() {
+        return PantallaPrinView;
     }
 
-    public ServidorControlador(PantallaServidor pantallaServidorView) {
-        this.pantallaServidorView = pantallaServidorView;
-        this.pantallaServidorView.btLimpiarPantalla.addActionListener(this);
-        this.pantallaServidorView.btUsuariosEnLinea.addActionListener(this);
-        this.pantallaServidorView.btIniciarServidor.addActionListener(this);
-        this.pantallaServidorView.btDetenerServidor.addActionListener(this);
-        this.pantallaServidorView.btDesbloquear.addActionListener(this);
-        this.pantallaServidorView.btBloquear.addActionListener(this);
+    public void setPantallaPrinView(PantallaPrincipal PantallaPrinView) {
+        this.PantallaPrinView = PantallaPrinView;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == pantallaServidorView.btLimpiarPantalla) {
-            pantallaServidorView.Chat_Servidor.setText("");
+        if (e.getSource() == PantallaPrinView.menuManteCliente) {
+            ManteCliente manteClienteView = new ManteCliente();
+            ClienteBL clienteBLModelo = new ClienteBL();
+            ClienteControlador cC = new ClienteControlador(manteClienteView, clienteBLModelo);
+            cC.getMantClienteView().setVisible(true);
         }
-        if (e.getSource() == pantallaServidorView.btUsuariosEnLinea) {
-            for (ClienteHilo cliente : listaClientes) {
+
+        if (e.getSource() == PantallaPrinView.menuManteArticulo) {
+            ManteArticulo mateArticuloview = new ManteArticulo();
+            ArticuloBL articuloBlModelo = new ArticuloBL();
+            ArticuloControlador articuloc = new ArticuloControlador(mateArticuloview, articuloBlModelo);
+            articuloc.getMantArticuloView().setVisible(true);
+        }
+
+        if (e.getSource() == PantallaPrinView.menuManteProveedor) {
+            ManteProveedor manteProveedorView = new ManteProveedor();
+            ProveedorBL proveedorBlModelo = new ProveedorBL();
+            ProveedorControlador provControlador = new ProveedorControlador(manteProveedorView, proveedorBlModelo);
+            provControlador.getMantProveedorView().setVisible(true);
+        }
+
+        if (e.getSource() == PantallaPrinView.menuManteArtProv) {
+            ManteArtProv manteAp = new ManteArtProv();
+            ArtProvBL apBL = new ArtProvBL();
+            ArtProvControlador apc = new ArtProvControlador(manteAp, apBL);
+            apc.getManteArtProvView().setVisible(true);
+        }
+
+        if (e.getSource() == PantallaPrinView.btLimpiarPantalla) {
+            PantallaPrinView.Chat_Servidor.setText("");
+        }
+        if (e.getSource() == PantallaPrinView.btUsuariosEnLinea) {
+            for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
                 if (cliente.getEstadoActivo()) {
                     System.out.println("Cliente PC nombre:" + cliente.getNombrePC());
                 }
             }
         }
-        if (e.getSource() == this.pantallaServidorView.btIniciarServidor) {
-            Thread starter = new Thread(new ServerStart());
+        if (e.getSource() == this.PantallaPrinView.btIniciarServidor) {
+            Thread starter = new Thread(new PantallaPrincipalControlador.ServerStart());
             starter.start();
-            pantallaServidorView.Chat_Servidor.append("Servidor Iniciado...\n");
+            PantallaPrinView.Chat_Servidor.append("Servidor Iniciado...\n");
         }
-        if (e.getSource() == pantallaServidorView.btDetenerServidor) {
+        if (e.getSource() == PantallaPrinView.btDetenerServidor) {
             try {
                 Thread.sleep(2000);                 //2000 milliseconds is five second.
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
             tellEveryone("Server:el servidor ha sido detenido y los usuarios se han desconectados.\n:Chat");
-            pantallaServidorView.Chat_Servidor.append("Servidor Detenido... \n");
-            pantallaServidorView.Chat_Servidor.setText("");
+            PantallaPrinView.Chat_Servidor.append("Servidor Detenido... \n");
+            PantallaPrinView.Chat_Servidor.setText("");
         }
 
-        if (e.getSource() == pantallaServidorView.btDesbloquear) {
+        if (e.getSource() == PantallaPrinView.btDesbloquear) {
             try {
-                int fila = pantallaServidorView.jTPC.getSelectedRow();
-                String ipSeleccionada = pantallaServidorView.jTPC.getValueAt(fila, 1).toString();
-                String nombrePCSeleccionado = pantallaServidorView.jTPC.getValueAt(fila, 0).toString();
+                int fila = PantallaPrinView.jTPC.getSelectedRow();
+                String ipSeleccionada = PantallaPrinView.jTPC.getValueAt(fila, 1).toString();
+                String nombrePCSeleccionado = PantallaPrinView.jTPC.getValueAt(fila, 0).toString();
 
                 //*****************************************************
                 //se recorre la lista de clientes y se verifica a cual
                 //sokect se le quiere enviar el mensaja (el seleccionado 
                 //en la tabla)
                 //*****************************************************
-                for (ClienteHilo cliente : listaClientes) {
+                for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
                     //se optiene la IP del sokect para compararla con la seleccionada
                     String ipCliente = cliente.getSock().getInetAddress().toString();
                     if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
@@ -101,20 +141,20 @@ public class ServidorControlador implements ActionListener {
 
         }
 
-        if (e.getSource() == pantallaServidorView.btBloquear) {
+        if (e.getSource() == PantallaPrinView.btBloquear) {
 
-            int fila = pantallaServidorView.jTPC.getSelectedRow();
+            int fila = PantallaPrinView.jTPC.getSelectedRow();
             if (fila != -1) {
                 try {
-                    String ipSeleccionada = pantallaServidorView.jTPC.getValueAt(fila, 1).toString();
-                    String nombrePCSeleccionado = pantallaServidorView.jTPC.getValueAt(fila, 0).toString();
+                    String ipSeleccionada = PantallaPrinView.jTPC.getValueAt(fila, 1).toString();
+                    String nombrePCSeleccionado = PantallaPrinView.jTPC.getValueAt(fila, 0).toString();
 
                     //*****************************************************
                     //se recorre la lista de clientes y se verifica a cual
                     //sokect se le quiere enviar el mensaja (el seleccionado 
                     //en la tabla)
                     //*****************************************************
-                    for (ClienteHilo cliente : listaClientes) {
+                    for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
                         //se optiene la IP del sokect para compararla con la seleccionada
                         String ipCliente = cliente.getSock().getInetAddress().toString();
                         if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
@@ -130,8 +170,7 @@ public class ServidorControlador implements ActionListener {
                 }
             }
         }
-
-    }
+    } //Action listener ends here
 
     /**
      * ***********************************************************************************************
@@ -149,7 +188,7 @@ public class ServidorControlador implements ActionListener {
                     Socket clientSock = serverSock.accept();
                     //se crea un nuevo cliente
                     PrintWriter writer = new PrintWriter(clientSock.getOutputStream());
-                    ClienteHilo cliente = new ClienteHilo(clientSock, writer);
+                    PantallaPrincipalControlador.ClienteHilo cliente = new PantallaPrincipalControlador.ClienteHilo(clientSock, writer);
                     listaClientes.add(cliente);
 
                     //se crea un nuevo hilo para el nuevo socket creado, 
@@ -159,10 +198,10 @@ public class ServidorControlador implements ActionListener {
 
                     //se llena la tabla con los clientes conectados
                     llenarTabla();
-                    pantallaServidorView.Chat_Servidor.append("tienes una conexion \n" + clientSock.getInetAddress());
+                    PantallaPrinView.Chat_Servidor.append("tienes una conexion \n" + clientSock.getInetAddress());
                 }
             } catch (Exception ex) {
-                pantallaServidorView.Chat_Servidor.append("Error al realizar la conexión. \n");
+                PantallaPrinView.Chat_Servidor.append("Error al realizar la conexión. \n");
             }
         }
     }
@@ -186,11 +225,11 @@ public class ServidorControlador implements ActionListener {
                 writer.flush();
 
                 //Se muestra el mensaje en el texto
-                pantallaServidorView.Chat_Servidor.append("enviando: " + message + "\n");
-                pantallaServidorView.Chat_Servidor.setCaretPosition(pantallaServidorView.Chat_Servidor.getDocument().getLength());
+                PantallaPrinView.Chat_Servidor.append("enviando: " + message + "\n");
+                PantallaPrinView.Chat_Servidor.setCaretPosition(PantallaPrinView.Chat_Servidor.getDocument().getLength());
 
             } catch (Exception ex) {
-                pantallaServidorView.Chat_Servidor.append("Error al enviar mensaje a todos. \n");
+                PantallaPrinView.Chat_Servidor.append("Error al enviar mensaje a todos. \n");
             }
         }
     }
@@ -201,7 +240,7 @@ public class ServidorControlador implements ActionListener {
     public void llenarTabla() {
 
         DefaultTableModel modeloTabla = new DefaultTableModel();
-        pantallaServidorView.jTPC.setModel(modeloTabla);
+        PantallaPrinView.jTPC.setModel(modeloTabla);
         String fila[] = new String[5];
 
         modeloTabla.addColumn("Nombre");
@@ -209,7 +248,7 @@ public class ServidorControlador implements ActionListener {
         modeloTabla.addColumn("Estado");
         modeloTabla.addColumn("Hora Inicio");
         modeloTabla.addColumn("Hora Fin");
-        TableColumnModel columnModel = pantallaServidorView.jTPC.getColumnModel();
+        TableColumnModel columnModel = PantallaPrinView.jTPC.getColumnModel();
         columnModel.getColumn(2).setPreferredWidth(80);
 
         try {
@@ -219,7 +258,7 @@ public class ServidorControlador implements ActionListener {
             //información de los clientes conectados
             //*************************************************
             //*************************************************
-            for (ClienteHilo cliente : listaClientes) {
+            for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
 
                 fila[0] = cliente.getNombrePC();
                 fila[1] = cliente.getSock().getInetAddress().toString();
@@ -257,7 +296,7 @@ public class ServidorControlador implements ActionListener {
                 InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
                 reader = new BufferedReader(isReader);
             } catch (Exception ex) {
-                pantallaServidorView.Chat_Servidor.append("inesperado error... \n");
+                PantallaPrinView.Chat_Servidor.append("inesperado error... \n");
             }
 
         }
@@ -278,7 +317,7 @@ public class ServidorControlador implements ActionListener {
                     //El mensaje se muestra en el Texto de mensajes
                     //aca se deberia codificar que se quiere hacer
                     //*****************************************************
-                    pantallaServidorView.Chat_Servidor.append("Recibido: " + message + "\n");
+                    PantallaPrinView.Chat_Servidor.append("Recibido: " + message + "\n");
 
                     //Se decodifica el mensaje
                     String mensajeEnPartes[] = message.split(":");
@@ -288,7 +327,7 @@ public class ServidorControlador implements ActionListener {
                     }
                 }
             } catch (Exception ex) {
-                pantallaServidorView.Chat_Servidor.append("conexion perdida. \n");
+                PantallaPrinView.Chat_Servidor.append("conexion perdida. \n");
                 ex.printStackTrace();
             }
         }
@@ -356,7 +395,5 @@ public class ServidorControlador implements ActionListener {
         public void setNombrePC(String nombrePC) {
             this.nombrePC = nombrePC;
         }
-
     }
-
 }
