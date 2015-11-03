@@ -44,17 +44,20 @@ public class PantallaInicio extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Contraseña");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(110, 120, 70, 20);
+        jLabel2.setBounds(120, 120, 70, 20);
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Usuario");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(120, 90, 50, 14);
 
+        btIniciarSesion.setBackground(new java.awt.Color(255, 255, 255));
+        btIniciarSesion.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btIniciarSesion.setForeground(new java.awt.Color(0, 0, 204));
         btIniciarSesion.setIcon(new javax.swing.ImageIcon("D:\\Descargas\\U\\Iconos para proyectos\\1446542797_Login_in.png")); // NOI18N
         btIniciarSesion.setText("Iniciar sesion");
         getContentPane().add(btIniciarSesion);
-        btIniciarSesion.setBounds(150, 160, 110, 41);
+        btIniciarSesion.setBounds(130, 160, 140, 41);
         getContentPane().add(txtUsuario);
         txtUsuario.setBounds(190, 90, 90, 20);
 
