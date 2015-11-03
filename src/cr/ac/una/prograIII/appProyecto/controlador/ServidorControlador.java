@@ -8,6 +8,8 @@ package cr.ac.una.prograIII.appProyecto.controlador;
 import cr.ac.una.prograIII.appProyecto.vista.PantallaServidor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -15,6 +17,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -43,6 +46,19 @@ public class ServidorControlador implements ActionListener {
         this.pantallaServidorView.btDetenerServidor.addActionListener(this);
         this.pantallaServidorView.btDesbloquear.addActionListener(this);
         this.pantallaServidorView.btBloquear.addActionListener(this);
+        this.pantallaServidorView.btEnviar.addActionListener(this);
+        this.pantallaServidorView.txtMensaje.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                pantallaServidorView.txtMensaje.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                pantallaServidorView.txtMensaje.setText("Mensaje");
+            }
+        });
     }
 
     @Override
@@ -99,6 +115,43 @@ public class ServidorControlador implements ActionListener {
 
             }
 
+        }
+        
+        if(e.getSource()==pantallaServidorView.btEnviar){
+        
+            int fila = pantallaServidorView.jTPC.getSelectedRow();
+            if (fila != -1) {
+                try {
+                    String ipSeleccionada = pantallaServidorView.jTPC.getValueAt(fila, 1).toString();
+                    String nombrePCSeleccionado = pantallaServidorView.jTPC.getValueAt(fila, 0).toString();
+
+                    //*****************************************************
+                    //se recorre la lista de clientes y se verifica a cual
+                    //sokect se le quiere enviar el mensaja (el seleccionado 
+                    //en la tabla)
+                    //*****************************************************
+                    for (ClienteHilo cliente : listaClientes) {
+                        //se optiene la IP del sokect para compararla con la seleccionada
+                        String ipCliente = cliente.getSock().getInetAddress().toString();
+                        if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
+                            //si el sokect es la tiene la ip seleccionada
+                            //se le envia un mensaje
+                            PrintWriter writer = new PrintWriter(cliente.getSock().getOutputStream());
+                            writer.println("Servidor: "+pantallaServidorView.txtMensaje.getText());
+                            writer.flush();
+                            pantallaServidorView.Chat_Servidor.append("\n"+pantallaServidorView.txtMensaje.getText());
+                        }
+                    }
+                } catch (Exception el) {
+
+                }
+            }
+        
+        
+        
+        
+        
+        
         }
 
         if (e.getSource() == pantallaServidorView.btBloquear) {
@@ -220,10 +273,16 @@ public class ServidorControlador implements ActionListener {
             //*************************************************
             //*************************************************
             for (ClienteHilo cliente : listaClientes) {
+                Date fecha1 = new Date ();
+                 System.out.println(fecha1.toLocaleString());
+                 
 
                 fila[0] = cliente.getNombrePC();
                 fila[1] = cliente.getSock().getInetAddress().toString();
-                fila[4] = cliente.getEstadoActivo().toString();
+                fila[2]=cliente.getEstadoActivo().toString();
+                fila[3]=cliente.getHoInicio();
+                fila[4] = cliente.getHoFin();
+                
 
                 modeloTabla.addRow(fila);
 
@@ -279,13 +338,22 @@ public class ServidorControlador implements ActionListener {
                     //aca se deberia codificar que se quiere hacer
                     //*****************************************************
                     pantallaServidorView.Chat_Servidor.append("Recibido: " + message + "\n");
-
+                    Date fecha = new Date ();
                     //Se decodifica el mensaje
                     String mensajeEnPartes[] = message.split(":");
                     if (mensajeEnPartes[0].equals("N")) {//nuevo usuario
                         this.nombrePC = mensajeEnPartes[1];
+                        this.hoInicio=String.valueOf(fecha.toGMTString());
                         llenarTabla();// se llena la tabla de clientes
                     }
+                    if(mensajeEnPartes[0].equals("D")){
+                       this.estadoActivo=false;
+                       this.hoFin=String.valueOf(fecha.getHours()+":"+fecha.getMinutes());
+                       llenarTabla();
+                       
+                       
+                    }
+                    
                 }
             } catch (Exception ex) {
                 pantallaServidorView.Chat_Servidor.append("conexion perdida. \n");
