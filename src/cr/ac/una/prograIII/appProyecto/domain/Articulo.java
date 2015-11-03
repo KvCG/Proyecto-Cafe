@@ -17,25 +17,29 @@ public class Articulo extends BaseDomain{
     private String nombre;
     private String descripcion;
     private String precio;
+    private int cantidad;
 
     public Articulo() {
     }
 
-    public Articulo(int PK_idArticulo, String nombre, String descripcion, String precio) {
+    public Articulo(int PK_idArticulo, String nombre, String descripcion, String precio, int cantidad) {
         this.PK_idArticulo = PK_idArticulo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.cantidad = cantidad;
     }
 
-    public Articulo(int PK_idArticulo, String nombre, String descripcion, String precio, String ultUsuario, String ultFecha) {
+    public Articulo(int PK_idArticulo, String nombre, String descripcion, String precio, int cantidad, String ultUsuario, String ultFecha) {
         super(ultUsuario, ultFecha);
         this.PK_idArticulo = PK_idArticulo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.cantidad = cantidad;
     }
 
+    
     public int getPK_idArticulo() {
         return PK_idArticulo;
     }
@@ -67,5 +71,15 @@ public class Articulo extends BaseDomain{
     public void setPrecio(String precio) {
         this.precio = precio;
     }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    
     
 }

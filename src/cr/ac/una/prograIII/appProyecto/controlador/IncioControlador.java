@@ -23,6 +23,7 @@ public class IncioControlador implements ActionListener {
     public IncioControlador(PantallaInicio pantInicio) {
         this.pantInicio = pantInicio;
         this.pantInicio.btIniciarSesion.addActionListener(this);
+        this.pantInicio.txtPass.setText("");
 
     }
 

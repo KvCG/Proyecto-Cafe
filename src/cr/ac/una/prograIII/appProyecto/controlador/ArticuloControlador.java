@@ -48,8 +48,9 @@ public class ArticuloControlador implements ActionListener, DocumentListener {
         modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("Descripcion");
         modeloTabla.addColumn("Precio");
+        modeloTabla.addColumn("Cantidad");
 
-        Object fila[] = new Object[4];
+        Object fila[] = new Object[5];
 
         try {
             for (Object oAux : articuloBLModelo.obtenerTodos()) {
@@ -58,6 +59,7 @@ public class ArticuloControlador implements ActionListener, DocumentListener {
                 fila[1] = s.getNombre();
                 fila[2] = s.getDescripcion();
                 fila[3] = s.getPrecio();
+                fila[4] = s.getCantidad();
 
                 modeloTabla.addRow(fila);
             }
@@ -175,6 +177,7 @@ public class ArticuloControlador implements ActionListener, DocumentListener {
             s.setNombre(this.mantArticuloView.txtNombre.getText());
             s.setDescripcion(this.mantArticuloView.txtDescripcion.getText());
             s.setPrecio((this.mantArticuloView.txtPrecio.getText()));
+             s.setCantidad(Integer.parseInt(this.mantArticuloView.txtCantidad.getText()));
 
             try {
                 this.articuloBLModelo.modificar(s);
@@ -193,6 +196,7 @@ public class ArticuloControlador implements ActionListener, DocumentListener {
             mantArticuloView.txtNombre.setText("");
             mantArticuloView.txtID.setText("");
             mantArticuloView.txtPrecio.setText("");
+            mantArticuloView.txtCantidad.setText("");
             mantArticuloView.btModificar.setEnabled(false);
 
         }
@@ -208,6 +212,7 @@ public class ArticuloControlador implements ActionListener, DocumentListener {
                     this.mantArticuloView.txtNombre.setText(a.getNombre());
                     this.mantArticuloView.txtDescripcion.setText(a.getDescripcion());
                     this.mantArticuloView.txtPrecio.setText(String.valueOf(a.getPrecio()));
+                    mantArticuloView.txtCantidad.setText(Integer.toString(a.getCantidad()));
 
                 } catch (SQLException ex) {
                     JOptionPane.showConfirmDialog(mantArticuloView, ex, null, fila, JOptionPane.ERROR_MESSAGE);
@@ -243,6 +248,8 @@ public class ArticuloControlador implements ActionListener, DocumentListener {
                 mantArticuloView.btModificar.setEnabled(true);
                 this.mantArticuloView.txtNombre.setText(s.getNombre());
                 this.mantArticuloView.txtPrecio.setText(String.valueOf(s.getPrecio()));
+                mantArticuloView.txtCantidad.setText(Integer.toString(s.getCantidad()));
+                
                 mantArticuloView.txtDescripcion.setText(s.getDescripcion());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(mantArticuloView, "Error no se pudo consultar el articulo (" + ex.getMessage() + ")", "Error al cargar articulo", JOptionPane.ERROR_MESSAGE);

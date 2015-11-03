@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ce5a86c0-4e54-4149-a6e0-dbee2bdaebf1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     articulo.`nombre` AS articulo_nombre,
+     articulo.`precio` AS articulo_precio
+FROM
+     `articulo` articulo]]>
+	</queryString>
+	<field name="articulo_nombre" class="java.lang.String"/>
+	<field name="articulo_precio" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="222" y="28" width="100" height="20" uuid="db852666-d19a-467e-a321-00942c13882c"/>
+				<text><![CDATA[Listado de articulos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="222" y="15" width="100" height="20" uuid="4fbfc090-def8-451b-b5e1-c03d9684df28"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="122" y="22" width="100" height="20" uuid="9fe5a6c0-7720-4ba3-bb7d-350abaf7bcdf"/>
+				<text><![CDATA[Nombre del articulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="322" y="22" width="100" height="20" uuid="46a358a4-480c-4043-9586-b96818d0e04a"/>
+				<text><![CDATA[Precio]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="122" y="12" width="100" height="20" uuid="20e83937-6a12-4650-888f-fbbc3be93348"/>
+				<textFieldExpression><![CDATA[$F{articulo_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="12" width="100" height="20" uuid="757a20f7-987b-4a0c-9562-92472d4b9d69"/>
+				<textFieldExpression><![CDATA[$F{articulo_precio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="443" y="23" width="100" height="20" uuid="0104bc7f-335c-498a-ab7c-02f7d53c4d64"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

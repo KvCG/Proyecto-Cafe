@@ -33,13 +33,15 @@ public class ArticuloDao implements IBaseDao<Articulo> {
 
         CallableStatement cs = con.prepareCall("insert into articulo (nombre,descripcion,"
                 + "precio,"
+                +"cantidad,"
                 + "ultUsuario,"
                 + "ultFecha) values "
-                + "(?,?,?,?,curdate())");
+                + "(?,?,?,?,?,curdate())");
         cs.setString(1, obj.getNombre());
         cs.setString(2, obj.getDescripcion());
         cs.setString(3, obj.getPrecio());
-        cs.setString(4, obj.getUltUsuario());
+        cs.setInt(4, obj.getCantidad());
+        cs.setString(5, obj.getUltUsuario());
 
         cs.executeUpdate();
         con.close();
@@ -51,15 +53,16 @@ public class ArticuloDao implements IBaseDao<Articulo> {
         Connection con = conexion.getConexion();
 
         CallableStatement cs = con.prepareCall("update articulo set nombre = ?, "
-                + "descripcion = ?, precio = ?, "
+                + "descripcion = ?, precio = ?, cantidad = ?, "
                 + "ultUsuario = ?,"
                 + "ultFecha = curdate() "
                 + "where PK_idArticulo = ?");
         cs.setString(1, obj.getNombre());
         cs.setString(2, obj.getDescripcion());
         cs.setString(3, obj.getPrecio());
-        cs.setString(4, obj.getUltUsuario());
-        cs.setInt(5, obj.getPK_idArticulo());
+        cs.setInt(4, obj.getCantidad());
+        cs.setString(5, obj.getUltUsuario());
+        cs.setInt(6, obj.getPK_idArticulo());
         cs.executeUpdate();
         con.close();
     }
@@ -91,6 +94,7 @@ public class ArticuloDao implements IBaseDao<Articulo> {
             s.setNombre(result.getString("nombre"));
             s.setDescripcion(result.getString("descripcion"));
             s.setPrecio(result.getString("precio"));
+            s.setCantidad(result.getInt("cantidad"));
             s.setUltUsuario(result.getString("UltUsuario"));
         }
         con.close();
@@ -110,6 +114,7 @@ public class ArticuloDao implements IBaseDao<Articulo> {
             s.setPK_idArticulo(result.getInt("PK_idArticulo"));
             s.setNombre(result.getString("nombre"));
             s.setDescripcion(result.getString("descripcion"));
+            s.setCantidad(result.getInt("cantidad"));
             s.setPrecio(result.getString("precio"));
             s.setUltUsuario(result.getString("UltUsuario"));
             l.add(s);
@@ -132,6 +137,7 @@ public class ArticuloDao implements IBaseDao<Articulo> {
             s.setNombre(result.getString("nombre"));
             s.setDescripcion(result.getString("descripcion"));
             s.setPrecio(result.getString("precio"));
+            s.setCantidad(result.getInt("cantidad"));
             s.setUltUsuario(result.getString("UltUsuario"));
             l.add(s);
         }

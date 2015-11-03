@@ -21,9 +21,27 @@ public class ProyectoCafe {
         IncioControlador i = new IncioControlador(pp);
         i.getPantInicio().setVisible(true);
         
-//        ManteCliente manteClienteView = new ManteCliente();
-//        ClienteBL clienteBLModelo = new ClienteBL();
-//        ClienteControlador cC = new ClienteControlador(manteClienteView, clienteBLModelo);
-//        cC.getMantClienteView().setVisible(true);
-    }
-}
+//InputStream inputStream = null;
+//        try {            
+//            inputStream = new FileInputStream ("C:\\Users\\chgari.ICETEL\\Desktop\\PrograIII-Leccion14\\PrograIII-Leccion14\\src\\cr\\ac\\una\\prograIII\\appMVC\\vista\\reportes\\socioLista.jrxml");
+//            Map parameters = new HashMap();
+//            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+//            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+//            
+//            MySQLConexion Con = new MySQLConexion();
+//            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters,Con.getConexion());
+//            JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\chgari.ICETEL\\Desktop\\socioLista.pdf");
+//            
+//            File file = new File("C:\\Users\\chgari.ICETEL\\Desktop\\socioLista.pdf"); // Este codigo sirve para abrir los archivos de cualquier tipo
+//            if (file.toString().endsWith(".pdf")) 
+//                Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
+//            else {
+//                Desktop desktop = Desktop.getDesktop();
+//                desktop.open(file);
+//            }
+//
+//        } catch (FileNotFoundException ex) {
+//            System.err.println(ex.getMessage());
+//        }
+//    }
+}}
