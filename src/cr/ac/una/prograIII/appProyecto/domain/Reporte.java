@@ -51,6 +51,7 @@ public class Reporte {
             JasperExportManager.exportReportToPdfFile(jasperPrint, "C:\\Users\\Kev\\Desktop\\Reportes\\"+a+".pdf");
 
             File file = new File("C:\\Users\\Kev\\Desktop\\Reportes\\"+a+".pdf"); // Este codigo sirve para abrir los archivos de cualquier tipo
+            System.out.println(file.getAbsolutePath());
             if (file.toString().endsWith(".pdf")) {
                 Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + file);
             } else {
