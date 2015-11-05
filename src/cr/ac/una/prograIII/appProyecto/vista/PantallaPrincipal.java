@@ -42,9 +42,9 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         btDetenerServidor = new javax.swing.JButton();
         btBloquear = new javax.swing.JButton();
         btDesbloquear = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btEnviar = new javax.swing.JButton();
         txtMensaje = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        btFacturar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Chat_Servidor = new javax.swing.JTextArea();
         MenuBarPrincipal = new javax.swing.JMenuBar();
@@ -126,7 +126,6 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         btDetenerServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/media_playback_stop.png"))); // NOI18N
         btDetenerServidor.setText("Detener ");
 
-        btBloquear.setIcon(new javax.swing.ImageIcon("D:\\Descargas\\U\\Iconos para proyectos\\1445654832_locked.png")); // NOI18N
         btBloquear.setText("Bloquear");
 
         btDesbloquear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/unlock.png"))); // NOI18N
@@ -137,10 +136,10 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
             }
         });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/mail.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/mail.png"))); // NOI18N
+        btEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btEnviarActionPerformed(evt);
             }
         });
 
@@ -151,7 +150,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
             }
         });
 
-        jButton6.setText("Facturar");
+        btFacturar.setText("Facturar");
 
         Chat_Servidor.setEditable(false);
         Chat_Servidor.setColumns(20);
@@ -252,7 +251,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btLimpiarPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,7 +266,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                                         .addComponent(btBloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                                            .addComponent(btFacturar, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                                             .addComponent(btUsuariosEnLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addComponent(btDetenerServidor)))))
                     .addContainerGap(12, Short.MAX_VALUE)))
@@ -296,7 +295,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btBloquear)
                                     .addComponent(btUsuariosEnLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jButton6))
+                                .addComponent(btFacturar))
                             .addGap(16, 16, 16)
                             .addComponent(btDetenerServidor)))
                     .addGap(18, 18, 18)
@@ -308,7 +307,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtMensaje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btEnviar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap()))
         );
 
@@ -353,9 +352,9 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         // TODO add your handling code here:
     }//GEN-LAST:event_btDesbloquearActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btEnviarActionPerformed
 
     private void txtMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMensajeActionPerformed
         // TODO add your handling code here:
@@ -412,14 +411,14 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
     public javax.swing.JButton btBloquear;
     public javax.swing.JButton btDesbloquear;
     public javax.swing.JButton btDetenerServidor;
+    public javax.swing.JButton btEnviar;
+    public javax.swing.JButton btFacturar;
     public javax.swing.JButton btIniciarServidor;
     public javax.swing.JButton btLimpiarPantalla;
     private javax.swing.JButton btServidor;
     public javax.swing.JButton btUsuariosEnLinea;
     public javax.swing.JButton cargaPc;
     private javax.swing.JButton jButton1;
-    public javax.swing.JButton jButton5;
-    public javax.swing.JButton jButton6;
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu16;

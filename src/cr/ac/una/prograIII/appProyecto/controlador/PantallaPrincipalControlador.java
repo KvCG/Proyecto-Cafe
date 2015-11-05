@@ -9,6 +9,7 @@ import cr.ac.una.prograIII.appProyecto.bl.ArtProvBL;
 import cr.ac.una.prograIII.appProyecto.bl.ArticuloBL;
 import cr.ac.una.prograIII.appProyecto.bl.ClienteBL;
 import cr.ac.una.prograIII.appProyecto.bl.ProveedorBL;
+import cr.ac.una.prograIII.appProyecto.vista.FacturaView;
 import cr.ac.una.prograIII.appProyecto.vista.ManteArtProv;
 import cr.ac.una.prograIII.appProyecto.vista.ManteArticulo;
 import cr.ac.una.prograIII.appProyecto.vista.ManteProveedor;
@@ -16,6 +17,8 @@ import cr.ac.una.prograIII.appProyecto.vista.PantallaPrincipal;
 import cr.ac.una.prograIII.appProyecto.vista1.ManteCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -23,6 +26,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -47,6 +51,21 @@ public class PantallaPrincipalControlador implements ActionListener {
         this.PantallaPrinView.menuManteArticulo.addActionListener(this);
         this.PantallaPrinView.menuManteArtProv.addActionListener(this);
         this.PantallaPrinView.menuManteProveedor.addActionListener(this);
+        this.PantallaPrinView.btEnviar.addActionListener(this);
+        this.PantallaPrinView.btFacturar.addActionListener(this);
+        this.PantallaPrinView.txtMensaje.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                PantallaPrinView.txtMensaje.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                PantallaPrinView.txtMensaje.setText("Mensaje");
+            }
+        });
+        
     }
 
     public PantallaPrincipal getPantallaPrinView() {
@@ -139,6 +158,43 @@ public class PantallaPrincipalControlador implements ActionListener {
 
             }
 
+        }
+        if(e.getSource()==PantallaPrinView.btFacturar){
+            ArticuloBL arti = new ArticuloBL();
+            FacturaView f= new FacturaView();
+            FacturaControlador fc=new FacturaControlador(f,arti);
+            fc.getFactura().setVisible(true);
+        }
+        if(e.getSource()==PantallaPrinView.btEnviar){
+        
+            int fila = PantallaPrinView.jTPC.getSelectedRow();
+            if (fila != -1) {
+                try {
+                    String ipSeleccionada = PantallaPrinView.jTPC.getValueAt(fila, 1).toString();
+                    String nombrePCSeleccionado = PantallaPrinView.jTPC.getValueAt(fila, 0).toString();
+
+                    //*****************************************************
+                    //se recorre la lista de clientes y se verifica a cual
+                    //sokect se le quiere enviar el mensaja (el seleccionado 
+                    //en la tabla)
+                    //*****************************************************
+                    for (ClienteHilo cliente : listaClientes) {
+                        //se optiene la IP del sokect para compararla con la seleccionada
+                        String ipCliente = cliente.getSock().getInetAddress().toString();
+                        if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
+                            //si el sokect es la tiene la ip seleccionada
+                            //se le envia un mensaje
+                            PrintWriter writer = new PrintWriter(cliente.getSock().getOutputStream());
+                            writer.println("Servidor: "+PantallaPrinView.txtMensaje.getText());
+                            writer.flush();
+                            PantallaPrinView.Chat_Servidor.append("\n"+PantallaPrinView.txtMensaje.getText());
+                        }
+                    }
+                } catch (Exception el) {
+
+                }
+            }
+        
         }
 
         if (e.getSource() == PantallaPrinView.btBloquear) {
@@ -260,9 +316,11 @@ public class PantallaPrincipalControlador implements ActionListener {
             //*************************************************
             for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
 
-                fila[0] = cliente.getNombrePC();
+                 fila[0] = cliente.getNombrePC();
                 fila[1] = cliente.getSock().getInetAddress().toString();
-                fila[4] = cliente.getEstadoActivo().toString();
+                fila[2]=cliente.getEstadoActivo().toString();
+                fila[3]=cliente.getHoInicio();
+                fila[4] = cliente.getHoFin();
 
                 modeloTabla.addRow(fila);
 
@@ -318,12 +376,20 @@ public class PantallaPrincipalControlador implements ActionListener {
                     //aca se deberia codificar que se quiere hacer
                     //*****************************************************
                     PantallaPrinView.Chat_Servidor.append("Recibido: " + message + "\n");
-
+                    Date fecha = new Date ();
                     //Se decodifica el mensaje
                     String mensajeEnPartes[] = message.split(":");
                     if (mensajeEnPartes[0].equals("N")) {//nuevo usuario
                         this.nombrePC = mensajeEnPartes[1];
+                        this.hoInicio=String.valueOf(fecha.getHours()+":"+fecha.getMinutes());
                         llenarTabla();// se llena la tabla de clientes
+                    }
+                    if(mensajeEnPartes[0].equals("D")){
+                       this.estadoActivo=false;
+                       this.hoFin=String.valueOf(fecha.getHours()+":"+fecha.getMinutes());
+                       llenarTabla();
+                       
+                       
                     }
                 }
             } catch (Exception ex) {

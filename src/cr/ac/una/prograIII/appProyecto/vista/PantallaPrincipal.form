@@ -217,7 +217,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="txtMensaje" min="-2" pref="211" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton5" min="-2" pref="56" max="-2" attributes="0"/>
+                          <Component id="btEnviar" min="-2" pref="56" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                           <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
@@ -234,7 +234,7 @@
                                       <Component id="btBloquear" linkSize="1" max="32767" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="jButton6" pref="147" max="32767" attributes="0"/>
+                                          <Component id="btFacturar" pref="147" max="32767" attributes="0"/>
                                           <Component id="btUsuariosEnLinea" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -273,7 +273,7 @@
                                   <Component id="btBloquear" linkSize="2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btUsuariosEnLinea" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jButton6" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btFacturar" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Component id="btDetenerServidor" linkSize="2" min="-2" max="-2" attributes="0"/>
@@ -288,7 +288,7 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtMensaje" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="jButton5" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
+                      <Component id="btEnviar" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -403,9 +403,6 @@
     </Component>
     <Component class="javax.swing.JButton" name="btBloquear">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="D:\Descargas\U\Iconos para proyectos\1445654832_locked.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="Bloquear"/>
       </Properties>
       <AuxValues>
@@ -426,14 +423,14 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="btEnviar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/cr/ac/una/prograIII/appProyecto/vista/imagenes/mail.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btEnviarActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -450,7 +447,7 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton6">
+    <Component class="javax.swing.JButton" name="btFacturar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Facturar"/>
       </Properties>

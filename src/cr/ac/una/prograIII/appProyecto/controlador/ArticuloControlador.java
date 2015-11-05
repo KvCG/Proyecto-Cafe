@@ -95,6 +95,7 @@ public class ArticuloControlador implements ActionListener, DocumentListener {
                 s.setDescripcion(this.mantArticuloView.txtDescripcion.getText());
                 try {
                     s.setPrecio((this.mantArticuloView.txtPrecio.getText()));
+                    s.setCantidad(Integer.parseInt(this.mantArticuloView.txtCantidad.getText()));
 
                     try {
 
