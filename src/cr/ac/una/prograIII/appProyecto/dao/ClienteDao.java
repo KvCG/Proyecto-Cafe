@@ -110,7 +110,7 @@ public class ClienteDao implements IBaseDao<Cliente> {
         Connection con = conexion.getConexion();
         ArrayList<Cliente> l = new ArrayList();
 
-        PreparedStatement ps = con.prepareStatement("select * from cliente ");
+        PreparedStatement ps = con.prepareStatement("select * from cliente");
 
         ResultSet result = ps.executeQuery();
         while (result.next()) {
@@ -121,7 +121,7 @@ public class ClienteDao implements IBaseDao<Cliente> {
             s.setTelefono(result.getString("telefono"));
             s.setDireccion(result.getString("direccion"));
             s.setFechaNacimiento(result.getString("fecha_nacimiento"));
-            s.setObservaciones(result.getString("observaciones"));
+            s.setObservaciones(result.getString("Observaciones"));
             s.setUltUsuario(result.getString("UltUsuario"));
             l.add(s);
         }

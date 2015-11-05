@@ -6,8 +6,11 @@
 package cr.ac.una.prograIII.appProyecto.test;
 
 import cr.ac.una.prograIII.appProyecto.controlador.IncioControlador;
-import cr.ac.una.prograIII.appProyecto.vista.PantallaPrincipal;
+import cr.ac.una.prograIII.appProyecto.domain.Reporte;
 import cr.ac.una.prograIII.appProyecto.vista1.PantallaInicio;
+import java.io.IOException;
+import java.sql.SQLException;
+import net.sf.jasperreports.engine.JRException;
 
 
 /**
@@ -16,10 +19,12 @@ import cr.ac.una.prograIII.appProyecto.vista1.PantallaInicio;
  */
 public class ProyectoCafe {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, JRException, SQLException {
         PantallaInicio pp = new PantallaInicio();
         IncioControlador i = new IncioControlador(pp);
         i.getPantInicio().setVisible(true);
+        Reporte p = new Reporte();
+        p.creaReporte("ListaClientes.jrxml");
         
 //InputStream inputStream = null;
 //        try {            
