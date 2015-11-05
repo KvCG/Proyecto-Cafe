@@ -162,7 +162,8 @@ public class PantallaPrincipalControlador implements ActionListener {
         if(e.getSource()==PantallaPrinView.btFacturar){
             ArticuloBL arti = new ArticuloBL();
             FacturaView f= new FacturaView();
-            FacturaControlador fc=new FacturaControlador(f,arti);
+            ClienteBL c = new ClienteBL();
+            FacturaControlador fc=new FacturaControlador(f,arti, c);
             fc.getFactura().setVisible(true);
         }
         if(e.getSource()==PantallaPrinView.btEnviar){

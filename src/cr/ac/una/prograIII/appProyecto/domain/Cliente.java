@@ -1,9 +1,6 @@
 
 package cr.ac.una.prograIII.appProyecto.domain;
 
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-
 
 public class Cliente extends BaseDomain{
     private Integer PK_idCliente;
@@ -94,13 +91,5 @@ public class Cliente extends BaseDomain{
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-    
-    
-
-    
-    
-    
-    
-    
+    }  
 }
