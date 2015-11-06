@@ -42,7 +42,7 @@ public class PantallaPrincipalControlador implements ActionListener {
     public PantallaPrincipalControlador(PantallaPrincipal PantallaPrinView) {
         this.PantallaPrinView = PantallaPrinView;
         this.PantallaPrinView.btLimpiarPantalla.addActionListener(this);
-        this.PantallaPrinView.btUsuariosEnLinea.addActionListener(this);
+        this.PantallaPrinView.btUsuariosEnLinea.setVisible(false);
         this.PantallaPrinView.btIniciarServidor.addActionListener(this);
         this.PantallaPrinView.btDetenerServidor.addActionListener(this);
         this.PantallaPrinView.btDesbloquear.addActionListener(this);

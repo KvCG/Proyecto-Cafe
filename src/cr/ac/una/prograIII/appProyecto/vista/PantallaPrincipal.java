@@ -32,7 +32,6 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         jMenu8 = new javax.swing.JMenu();
         jButton1 = new javax.swing.JButton();
         jMenuItem3 = new javax.swing.JMenuItem();
-        btUsuariosEnLinea = new javax.swing.JButton();
         btLimpiarPantalla = new javax.swing.JButton();
         btIniciarServidor = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -45,6 +44,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         btFacturar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Chat_Servidor = new javax.swing.JTextArea();
+        btUsuariosEnLinea = new javax.swing.JButton();
         MenuBarPrincipal = new javax.swing.JMenuBar();
         menuMantenimientos = new javax.swing.JMenu();
         menuManteCliente = new javax.swing.JMenuItem();
@@ -75,14 +75,6 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btUsuariosEnLinea.setText("Usuarios en linea");
-        btUsuariosEnLinea.setPreferredSize(new java.awt.Dimension(115, 23));
-        btUsuariosEnLinea.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btUsuariosEnLineaActionPerformed(evt);
-            }
-        });
 
         btLimpiarPantalla.setText("Limpiar pantalla");
         btLimpiarPantalla.setPreferredSize(new java.awt.Dimension(115, 23));
@@ -139,6 +131,8 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         Chat_Servidor.setColumns(20);
         Chat_Servidor.setRows(5);
         jScrollPane1.setViewportView(Chat_Servidor);
+
+        btUsuariosEnLinea.setText("jButton2");
 
         MenuBarPrincipal.setBackground(new java.awt.Color(0, 255, 204));
 
@@ -241,9 +235,9 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(btBloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(btFacturar, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                                        .addComponent(btUsuariosEnLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btFacturar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btUsuariosEnLinea)))
                                 .addComponent(btDetenerServidor)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -263,7 +257,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btBloquear)
-                                .addComponent(btUsuariosEnLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btUsuariosEnLinea))
                             .addComponent(btFacturar))
                         .addGap(16, 16, 16)
                         .addComponent(btDetenerServidor)))
@@ -300,10 +294,6 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
     private void menuManteArtProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuManteArtProvActionPerformed
                 // TODO add your handling code here:
     }//GEN-LAST:event_menuManteArtProvActionPerformed
-
-    private void btUsuariosEnLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUsuariosEnLineaActionPerformed
-
-    }//GEN-LAST:event_btUsuariosEnLineaActionPerformed
 
     private void btLimpiarPantallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimpiarPantallaActionPerformed
 

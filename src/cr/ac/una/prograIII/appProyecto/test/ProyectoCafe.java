@@ -24,7 +24,7 @@ public class ProyectoCafe {
         IncioControlador i = new IncioControlador(pp);
         i.getPantInicio().setVisible(true);
         Reporte p = new Reporte();
-        p.creaReporte("ListaClientes.jrxml");
+        //p.creaReporte("ListaClientes.jrxml");
         
 //InputStream inputStream = null;
 //        try {            

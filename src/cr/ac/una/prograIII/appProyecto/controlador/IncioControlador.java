@@ -23,7 +23,7 @@ public class IncioControlador implements ActionListener {
     public IncioControlador(PantallaInicio pantInicio) {
         this.pantInicio = pantInicio;
         this.pantInicio.btIniciarSesion.addActionListener(this);
-        this.pantInicio.txtPass.setText(" ");
+        this.pantInicio.txtPass.setText("");
 
     }
 
@@ -38,10 +38,10 @@ public class IncioControlador implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.pantInicio.btIniciarSesion) {
-            //char [] passCorrecta = {'1', '2', '3'};
-            char [] passCorrecta ={' '};
+            char [] passCorrecta = {'1', '2', '3'};
+           // char [] passCorrecta ={' '};
             char[] pass = this.pantInicio.txtPass.getPassword();
-            if (this.pantInicio.txtUsuario.getText().equals("") && Arrays.equals(passCorrecta, pass) ) {
+            if (this.pantInicio.txtUsuario.getText().equals("TK") && Arrays.equals(passCorrecta, pass) ) {
                 PantallaPrincipal pp = new PantallaPrincipal();
                 PantallaPrincipalControlador pantaPC =  new PantallaPrincipalControlador(pp);
                 pantaPC.getPantallaPrinView().setVisible(true);

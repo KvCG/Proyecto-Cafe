@@ -133,6 +133,15 @@ public class FacturaControlador implements ActionListener, DocumentListener {
             }
         }
     }
+    
+    void calculaTotal(){
+        Integer x =0;
+            for(int i = 0; i<=facturaView.jTDetalle.getRowCount()-1;i++){
+              x+=(Integer.parseInt(this.facturaView.jTDetalle.getValueAt(i, 3).toString()));
+            }
+            
+             facturaView.txtTotal.setText(""+x);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -150,12 +159,20 @@ public class FacturaControlador implements ActionListener, DocumentListener {
             bcc = new BuscaClienteControlador(busClienteView, clienteBlModelo, this.facturaView.txtIdCliente);
             bcc.getBusClienteView().setVisible(true);
         }
+        
+        if(e.getSource() == facturaView.btEliminar){
+            int fila = this.facturaView.jTDetalle.getSelectedRow();
+            facturaView.jTDetalle.removeRowSelectionInterval(fila, 0);
+        }
+        
 
         if (e.getSource() == facturaView.btAgregar) {
             /*Detalle d = new Detalle(Integer.parseInt(facturaView.txtArticulo.getText()), Integer.parseInt(facturaView.txtArticulo.getText()), Integer.parseInt(facturaView.txtArticulo.getText()),
                     Double.parseDouble(facturaView.txtValorUnitario.getText()), Integer.parseInt(facturaView.txtCantidad.getText()));
             factura.inserta(d);*/
             cargarJTable(facturaView.jTDetalle);
+           // calculaTotal();
+            
             
             
         }
@@ -166,27 +183,29 @@ public class FacturaControlador implements ActionListener, DocumentListener {
     
     public void cargarJTable(JTable tabla){
        //tablaDatos.setVisible(true);
-       DefaultTableModel modelo= new DefaultTableModel();
+       DefaultTableModel modelo= (DefaultTableModel) tabla.getModel();
        String datos[]=new String[4];
        
-       modelo.addColumn("Nombre");
-       modelo.addColumn("Cantidad");
-       modelo.addColumn("Precio");
-       modelo.addColumn("Total");
+       //modelo.addColumn("Nombre");
+       //modelo.addColumn("Cantidad");
+       //modelo.addColumn("Precio");
+       //modelo.addColumn("Total");
        //for(int x=0;x<modelo.getRowCount()+1;x++){
            datos[0]=facturaView.txtNombre.getText();
            datos[1]=facturaView.txtCantidad.getText();
            datos[2]=facturaView.txtValorUnitario.getText();
            datos[3]=facturaView.txtTotalArt.getText();
+           //modelo=(DefaulTableModel)tabla.getModel();
            modelo.addRow(datos);
            
-           modelo.setRowCount(modelo.getRowCount()+1);
+           
+          // modelo.addRow(datos);
            
        //}   
            tabla.setModel(modelo);
-            modelo.setRowCount(modelo.getRowCount()+1);
+            //modelo.setRowCount(modelo.getRowCount()+1);
            //tabla.addRowSelectionInterval(1, 2);
-           
+           calculaTotal();
        
       // }
 
