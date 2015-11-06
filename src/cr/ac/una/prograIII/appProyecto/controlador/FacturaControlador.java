@@ -20,6 +20,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -40,6 +41,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
     private ClienteBL clienteBlModelo;
 
     public FacturaControlador(FacturaView facturaView, ArticuloBL articuloBLModelo, ClienteBL clienteBLModeL) {
+        Date fecha = new Date();
         this.facturaView = facturaView;
         this.factura = new Factura();
         this.articuloBLModelo = articuloBLModelo;
@@ -49,7 +51,20 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         this.facturaView.btBuscarArticulo.addActionListener(this);
         this.facturaView.btBuscarCliente.addActionListener(this);
         this.facturaView.btAgregar.addActionListener(this);
+        this.facturaView.txtHora.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                facturaView.txtHora.setText(fecha.getHours()+":"+fecha.getMinutes());
+                facturaView.txtHora.setEnabled(false);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+            }
+        });
         this.facturaView.btEliminar.addActionListener(this);
+        
         this.facturaView.txtCantidad.addFocusListener(new FocusListener() {
 
             @Override
@@ -137,15 +152,45 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         }
 
         if (e.getSource() == facturaView.btAgregar) {
-            Detalle d = new Detalle(Integer.parseInt(facturaView.txtArticulo.getText()), Integer.parseInt(facturaView.txtArticulo.getText()), Integer.parseInt(facturaView.txtArticulo.getText()),
+            /*Detalle d = new Detalle(Integer.parseInt(facturaView.txtArticulo.getText()), Integer.parseInt(facturaView.txtArticulo.getText()), Integer.parseInt(facturaView.txtArticulo.getText()),
                     Double.parseDouble(facturaView.txtValorUnitario.getText()), Integer.parseInt(facturaView.txtCantidad.getText()));
-            factura.inserta(d);
+            factura.inserta(d);*/
+            cargarJTable(facturaView.jTDetalle);
+            
+            
         }
 
         if (e.getSource() == facturaView.btEliminar) {
         }
     }
+    
+    public void cargarJTable(JTable tabla){
+       //tablaDatos.setVisible(true);
+       DefaultTableModel modelo= new DefaultTableModel();
+       String datos[]=new String[4];
+       
+       modelo.addColumn("Nombre");
+       modelo.addColumn("Cantidad");
+       modelo.addColumn("Precio");
+       modelo.addColumn("Total");
+       //for(int x=0;x<modelo.getRowCount()+1;x++){
+           datos[0]=facturaView.txtNombre.getText();
+           datos[1]=facturaView.txtCantidad.getText();
+           datos[2]=facturaView.txtValorUnitario.getText();
+           datos[3]=facturaView.txtTotalArt.getText();
+           modelo.addRow(datos);
+           
+           modelo.setRowCount(modelo.getRowCount()+1);
+           
+       //}   
+           tabla.setModel(modelo);
+            modelo.setRowCount(modelo.getRowCount()+1);
+           //tabla.addRowSelectionInterval(1, 2);
+           
+       
+      // }
 
+    }
     @Override
     public void insertUpdate(DocumentEvent e) {
         cargarArticulo();

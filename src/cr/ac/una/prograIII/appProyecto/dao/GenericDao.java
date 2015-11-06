@@ -8,6 +8,7 @@ package cr.ac.una.prograIII.appProyecto.dao;
 import cr.ac.una.prograIII.appProyecto.domain.ArtProv;
 import cr.ac.una.prograIII.appProyecto.domain.Articulo;
 import cr.ac.una.prograIII.appProyecto.domain.Cliente;
+import cr.ac.una.prograIII.appProyecto.domain.Factura;
 import cr.ac.una.prograIII.appProyecto.domain.Proveedor;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,6 +40,10 @@ public class GenericDao {
         if(obj instanceof ArtProv){
             iBaseDao = new ArtProvDao();
         }
+        
+        if(obj instanceof Factura){
+            iBaseDao = new FacturaDao();
+        }
         iBaseDao.insertar(obj);
     }
 
@@ -57,6 +62,10 @@ public class GenericDao {
         
         if(obj instanceof ArtProv){
             iBaseDao = new ArtProvDao();
+        }
+        
+        if(obj instanceof Factura){
+            iBaseDao = new FacturaDao();
         }
         iBaseDao.modificar(obj);
     }
@@ -77,6 +86,10 @@ public class GenericDao {
         if(obj instanceof ArtProv){
             iBaseDao = new ArtProvDao();
         }
+        
+        if(obj instanceof Factura){
+            iBaseDao = new FacturaDao();
+        }
         iBaseDao.eliminar(obj);
     }
 
@@ -95,6 +108,10 @@ public class GenericDao {
         
         if(obj instanceof ArtProv){
             iBaseDao = new ArtProvDao();
+        }
+        
+        if(obj instanceof Factura){
+            iBaseDao = new FacturaDao();
         }
         return iBaseDao.obtenerPorId(obj);
     }
@@ -115,6 +132,10 @@ public class GenericDao {
         if(obj instanceof ArtProv){
             iBaseDao = new ArtProvDao();
         }
+        
+        if(obj instanceof Factura){
+            iBaseDao = new FacturaDao();
+        }
         return iBaseDao.obtenerTodos();
     }
 
@@ -133,6 +154,10 @@ public class GenericDao {
         
         if(obj instanceof ArtProv){
             iBaseDao = new ArtProvDao();
+        }
+        
+        if(obj instanceof Factura){
+            iBaseDao = new FacturaDao();
         }
 
         return iBaseDao.obtenerConWhere(where);
