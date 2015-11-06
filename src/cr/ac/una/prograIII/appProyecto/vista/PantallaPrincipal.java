@@ -140,7 +140,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         Chat_Servidor.setRows(5);
         jScrollPane1.setViewportView(Chat_Servidor);
 
-        MenuBarPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+        MenuBarPrincipal.setBackground(new java.awt.Color(0, 255, 204));
 
         menuMantenimientos.setText("Mantenimientos");
 
@@ -245,7 +245,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                                         .addComponent(btFacturar, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                                         .addComponent(btUsuariosEnLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addComponent(btDetenerServidor)))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btBloquear, btDesbloquear, btDetenerServidor, btIniciarServidor});
