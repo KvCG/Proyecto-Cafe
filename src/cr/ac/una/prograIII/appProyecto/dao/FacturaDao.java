@@ -9,6 +9,6 @@ package cr.ac.una.prograIII.appProyecto.dao;
  *
  * @author Kevin
  */
-public class FacturaDao extends {
+public class Factura extends {
     
 }
