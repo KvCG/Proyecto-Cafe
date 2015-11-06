@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
@@ -157,6 +158,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
             cargarJTable(facturaView.jTDetalle);
             
             
+            
         }
 
         if (e.getSource() == facturaView.btEliminar) {
@@ -165,25 +167,26 @@ public class FacturaControlador implements ActionListener, DocumentListener {
     
     public void cargarJTable(JTable tabla){
        //tablaDatos.setVisible(true);
-       DefaultTableModel modelo= new DefaultTableModel();
+       DefaultTableModel modelo= (DefaultTableModel) tabla.getModel();
        String datos[]=new String[4];
        
-       modelo.addColumn("Nombre");
-       modelo.addColumn("Cantidad");
-       modelo.addColumn("Precio");
-       modelo.addColumn("Total");
+       //modelo.addColumn("Nombre");
+       //modelo.addColumn("Cantidad");
+       //modelo.addColumn("Precio");
+       //modelo.addColumn("Total");
        //for(int x=0;x<modelo.getRowCount()+1;x++){
            datos[0]=facturaView.txtNombre.getText();
            datos[1]=facturaView.txtCantidad.getText();
            datos[2]=facturaView.txtValorUnitario.getText();
            datos[3]=facturaView.txtTotalArt.getText();
+           //modelo=(DefaulTableModel)tabla.getModel();
            modelo.addRow(datos);
            
-           modelo.setRowCount(modelo.getRowCount()+1);
+          // modelo.addRow(datos);
            
        //}   
            tabla.setModel(modelo);
-            modelo.setRowCount(modelo.getRowCount()+1);
+            //modelo.setRowCount(modelo.getRowCount()+1);
            //tabla.addRowSelectionInterval(1, 2);
            
        
@@ -236,7 +239,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
             s.setPK_idCliente(Integer.parseInt(this.facturaView.txtIdCliente.getText()));
             try {
                 s = clienteBlModelo.obtenerPorId(s);
-                this.facturaView.txtNombreCliente.setText(s.getNombre());
+                this.facturaView.txtNombreCliente.setText(s.getNombre()+" "+s.getApellidos());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(facturaView, "Error no se pudo consultar el articulo (" + ex.getMessage() + ")", "Error al cargar articulo", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(ArticuloControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,4 +247,4 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         }
     }
 
-}
+  }
