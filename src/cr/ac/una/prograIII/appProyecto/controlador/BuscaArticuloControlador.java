@@ -41,8 +41,6 @@ public class BuscaArticuloControlador implements ActionListener, KeyListener {
         this.articuloBuscarView = articuloBuscarView;
         this.articuloBLModelo = articuloBLModelo;
     }
-    
-    
 
     public void llenarTabla(JTable tablaArticulo) {
         DefaultTableModel modeloTabla = new DefaultTableModel();
@@ -51,9 +49,10 @@ public class BuscaArticuloControlador implements ActionListener, KeyListener {
         modeloTabla.addColumn("Id");
         modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("Descripcion");
+        modeloTabla.addColumn("Cantidad");
         modeloTabla.addColumn("Precio");
 
-        Object fila[] = new Object[4];
+        Object fila[] = new Object[5];
 
         String Sql = "where nombre like '%" + this.articuloBuscarView.txtBuscar.getText() + "%'";
 
@@ -63,7 +62,8 @@ public class BuscaArticuloControlador implements ActionListener, KeyListener {
                 fila[0] = s.getPK_idArticulo();
                 fila[1] = s.getNombre();
                 fila[2] = s.getDescripcion();
-                fila[3] = s.getPrecio();
+                fila[3] = s.getCantidad();
+                fila[4] = s.getPrecio();
 
                 modeloTabla.addRow(fila);
             }

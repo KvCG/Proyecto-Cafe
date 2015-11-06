@@ -16,17 +16,17 @@ public class Detalle extends BaseDomain {
    private Double precioUnitario;
    private Integer cantidad;
 
-    public Detalle(Integer idCliente, Integer idArticulo, Integer idFactura, Double precioUnitario, Integer cantidad) {
-        this.idCliente = idCliente;
+    public Detalle(Integer idArticulo, Integer idFactura, Double precioUnitario, Integer cantidad) {
+       
         this.idArticulo = idArticulo;
         this.idFactura = idFactura;
         this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
     }
 
-    public Detalle(Integer idCliente, Integer idArticulo, Integer idFactura, Double precioUnitario, Integer cantidad, String ultUsuario, String ultFecha) {
+    public Detalle(Integer idArticulo, Integer idFactura, Double precioUnitario, Integer cantidad, String ultUsuario, String ultFecha) {
         super(ultUsuario, ultFecha);
-        this.idCliente = idCliente;
+        
         this.idArticulo = idArticulo;
         this.idFactura = idFactura;
         this.precioUnitario = precioUnitario;
