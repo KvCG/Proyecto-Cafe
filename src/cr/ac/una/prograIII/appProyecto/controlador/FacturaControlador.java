@@ -158,6 +158,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
             cargarJTable(facturaView.jTDetalle);
             
             
+            
         }
 
         if (e.getSource() == facturaView.btEliminar) {
@@ -166,25 +167,26 @@ public class FacturaControlador implements ActionListener, DocumentListener {
     
     public void cargarJTable(JTable tabla){
        //tablaDatos.setVisible(true);
-       DefaultTableModel modelo= new DefaultTableModel();
+       DefaultTableModel modelo= (DefaultTableModel) tabla.getModel();
        String datos[]=new String[4];
        
-       modelo.addColumn("Nombre");
-       modelo.addColumn("Cantidad");
-       modelo.addColumn("Precio");
-       modelo.addColumn("Total");
+       //modelo.addColumn("Nombre");
+       //modelo.addColumn("Cantidad");
+       //modelo.addColumn("Precio");
+       //modelo.addColumn("Total");
        //for(int x=0;x<modelo.getRowCount()+1;x++){
            datos[0]=facturaView.txtNombre.getText();
            datos[1]=facturaView.txtCantidad.getText();
            datos[2]=facturaView.txtValorUnitario.getText();
            datos[3]=facturaView.txtTotalArt.getText();
+           //modelo=(DefaulTableModel)tabla.getModel();
            modelo.addRow(datos);
            
-           modelo.setRowCount(modelo.getRowCount()+1);
+          // modelo.addRow(datos);
            
        //}   
            tabla.setModel(modelo);
-            modelo.setRowCount(modelo.getRowCount()+1);
+            //modelo.setRowCount(modelo.getRowCount()+1);
            //tabla.addRowSelectionInterval(1, 2);
            
        
