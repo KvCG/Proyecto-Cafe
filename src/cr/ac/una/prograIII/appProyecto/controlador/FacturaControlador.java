@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -131,7 +132,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         if (e.getSource() == this.facturaView.btBuscarCliente) {
             BuscaCliente busClienteView = new BuscaCliente();
             BuscaClienteControlador bcc;
-            bcc = new BuscaClienteControlador(busClienteView, clienteBlModelo, this.facturaView.txtNombreCliente);
+            bcc = new BuscaClienteControlador(busClienteView, clienteBlModelo, this.facturaView.txtIdCliente);
             bcc.getBusClienteView().setVisible(true);
         }
 
@@ -191,9 +192,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
             s.setPK_idCliente(Integer.parseInt(this.facturaView.txtIdCliente.getText()));
             try {
                 s = clienteBlModelo.obtenerPorId(s);
-                System.out.println(s.getNombre());
-                JOptionPane.showMessageDialog(facturaView, "Error no se pudo consultar el articulo (" + s.getNombre()+ ")", "Error al cargar articulo", JOptionPane.ERROR_MESSAGE);
-                this.facturaView.txtNombreCliente.setText(s.getNombre());
+                this.facturaView.txtNombreCliente.setText(s.getNombre()+" "+s.getApellidos());
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(facturaView, "Error no se pudo consultar el articulo (" + ex.getMessage() + ")", "Error al cargar articulo", JOptionPane.ERROR_MESSAGE);
                 Logger.getLogger(ArticuloControlador.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,4 +200,4 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         }
     }
 
-}
+  }
