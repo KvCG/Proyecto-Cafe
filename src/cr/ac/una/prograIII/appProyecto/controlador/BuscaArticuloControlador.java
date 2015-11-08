@@ -16,13 +16,15 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Anthony Carrillo
  */
-public class BuscaArticuloControlador implements ActionListener, KeyListener {
+public class BuscaArticuloControlador implements ActionListener {
 
     private BuscaArticulo articuloBuscarView;
     private ArticuloBL articuloBLModelo;
@@ -33,7 +35,13 @@ public class BuscaArticuloControlador implements ActionListener, KeyListener {
         this.articuloBLModelo = articuloBLModelo;
         this.txtRespuesta = txtRespuesta;
         this.articuloBuscarView.btSeleccionar.addActionListener(this);
-        this.articuloBuscarView.txtBuscar.addKeyListener(null);
+        this.articuloBuscarView.txtBuscar.addCaretListener(new CaretListener() {
+
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                llenarTabla(articuloBuscarView.jTBuscarArticulo);
+            }
+        });
         llenarTabla(this.articuloBuscarView.jTBuscarArticulo);
     }
 
@@ -111,20 +119,4 @@ public class BuscaArticuloControlador implements ActionListener, KeyListener {
 
         }
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        llenarTabla(articuloBuscarView.jTBuscarArticulo);
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        llenarTabla(articuloBuscarView.jTBuscarArticulo);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        llenarTabla(articuloBuscarView.jTBuscarArticulo);
-    }
-
 }

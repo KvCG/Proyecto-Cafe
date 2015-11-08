@@ -79,6 +79,13 @@ public class Articulo extends BaseDomain{
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+    
+    public Boolean equals(Articulo e){
+        if(PK_idArticulo == e.getPK_idArticulo()){
+            return true;
+        }
+        return false;
+    }
 
     
     

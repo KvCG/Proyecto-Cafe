@@ -31,12 +31,11 @@ private final MySQLConexion conexion;
 
         CallableStatement cs = con.prepareCall("insert into Factura (idFactura,"
                                              + "fecha, ultUsuario,"
-                                             + "utlFecha) values "
+                                             + "ultFecha) values "
                                              + "(?,?,?,curdate())");
         cs.setInt(1, obj.getIdFactura());
         cs.setString(2, obj.getFecha());
         cs.setString(3, obj.getUltUsuario());
-        cs.setString(4, obj.getUltFecha());
         cs.executeUpdate();
         con.close();
     }

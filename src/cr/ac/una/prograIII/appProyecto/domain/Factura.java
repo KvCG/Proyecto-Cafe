@@ -14,22 +14,20 @@ import java.util.ArrayList;
 public class Factura extends BaseDomain {
     private Integer idFactura;
     private String fecha;
-    private ArrayList<Detalle> detalle;
-    
-    public Factura(){}
 
-    public Factura(Integer idFactura, String fecha, ArrayList<Detalle> detalle) {
-        this.idFactura = idFactura;
-        this.fecha = fecha;
-        this.detalle = detalle;
+    public Factura() {
     }
 
-    public Factura(Integer idFactura, String fecha, ArrayList<Detalle> detalle, String ultUsuario, String ultFecha) {
+    public Factura(Integer idFactura, String fecha) {
+        this.idFactura = idFactura;
+        this.fecha = fecha;
+    }
+
+    public Factura(Integer idFactura, String fecha, String ultUsuario, String ultFecha) {
         super(ultUsuario, ultFecha);
         this.idFactura = idFactura;
         this.fecha = fecha;
-        this.detalle = detalle;
-    }  
+    }
 
     public Integer getIdFactura() {
         return idFactura;
@@ -45,18 +43,5 @@ public class Factura extends BaseDomain {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-
-    public ArrayList<Detalle> getDetalle() {
-        return detalle;
-    }
-
-    public void setDetalle(ArrayList<Detalle> detalle) {
-        this.detalle = detalle;
-    }
-    
-   public void inserta(Detalle d){
-       detalle.add(d);
-   }
-       
+    }        
 }

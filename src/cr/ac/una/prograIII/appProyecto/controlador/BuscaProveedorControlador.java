@@ -10,19 +10,19 @@ import cr.ac.una.prograIII.appProyecto.domain.Proveedor;
 import cr.ac.una.prograIII.appProyecto.vista.BuscaProveedor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Anthony Carrillo
  */
-public class BuscaProveedorControlador implements ActionListener, KeyListener {
+public class BuscaProveedorControlador implements ActionListener {
 
     private BuscaProveedor proveedorBuscarView;
     private ProveedorBL proveedorBLModelo;
@@ -33,7 +33,13 @@ public class BuscaProveedorControlador implements ActionListener, KeyListener {
         this.proveedorBLModelo = proveedorBLModelo;
         this.txtRespuesta = txtRespuesta;
         this.proveedorBuscarView.btSeleccionar.addActionListener(this);
-        this.proveedorBuscarView.txtBuscar.addKeyListener(this);
+        this.proveedorBuscarView.txtBuscar.addCaretListener(new CaretListener() {
+
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                llenarTabla(proveedorBuscarView.jTBuscarProveedor);
+            }
+        });
         llenarTabla(this.proveedorBuscarView.jTBuscarProveedor);
     }
 
@@ -108,20 +114,4 @@ public class BuscaProveedorControlador implements ActionListener, KeyListener {
 
         }
     }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        llenarTabla(proveedorBuscarView.jTBuscarProveedor);
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        llenarTabla(proveedorBuscarView.jTBuscarProveedor);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        llenarTabla(proveedorBuscarView.jTBuscarProveedor);
-    }
-
 }

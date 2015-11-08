@@ -7,16 +7,21 @@ package cr.ac.una.prograIII.appProyecto.controlador;
 
 import cr.ac.una.prograIII.appProyecto.bl.ArticuloBL;
 import cr.ac.una.prograIII.appProyecto.bl.ClienteBL;
+import cr.ac.una.prograIII.appProyecto.bl.DetalleBL;
+import cr.ac.una.prograIII.appProyecto.bl.FacturaBL;
+import cr.ac.una.prograIII.appProyecto.conexion.MySQLConexion;
 import cr.ac.una.prograIII.appProyecto.domain.Articulo;
 import cr.ac.una.prograIII.appProyecto.domain.Cliente;
+import cr.ac.una.prograIII.appProyecto.domain.Detalle;
 import cr.ac.una.prograIII.appProyecto.vista.BuscaArticulo;
 import cr.ac.una.prograIII.appProyecto.vista.FacturaView;
 import cr.ac.una.prograIII.appProyecto.domain.Factura;
 import cr.ac.una.prograIII.appProyecto.vista.BuscaCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,9 +46,12 @@ public class FacturaControlador implements ActionListener, DocumentListener {
     private Factura factura;
     private ClienteBL clienteBlModelo;
     private ArrayList<Articulo> listaDetalle;
+    private FacturaBL facBL;
+    private DetalleBL detBL;
 
     public FacturaControlador(FacturaView facturaView, ArticuloBL articuloBLModelo, ClienteBL clienteBLModeL) {
-
+        this.facBL = new FacturaBL();
+        this.detBL = new DetalleBL();
         listaDetalle = new ArrayList();
         this.facturaView = facturaView;
         this.factura = new Factura();
@@ -55,7 +63,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         this.facturaView.btBuscarCliente.addActionListener(this);
         this.facturaView.btAgregar.addActionListener(this);
         this.facturaView.btEliminar.addActionListener(this);
-
+        this.facturaView.btFacturar.addActionListener(this);
         this.facturaView.txtCantidad.addCaretListener(new CaretListener() {
 
             @Override
@@ -134,6 +142,41 @@ public class FacturaControlador implements ActionListener, DocumentListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == this.facturaView.btFacturar) {
+            if (!listaDetalle.isEmpty() && !this.facturaView.txtNombreCliente.getText().isEmpty()) {
+                Detalle d;
+                Factura f = new Factura(0, facturaView.lbFecha.getText());
+                Integer ultimaFactura = 0;
+                MySQLConexion conexion = new MySQLConexion();
+                Connection con;
+                try {
+                    con = conexion.getConexion();
+                    facBL.insertar(f);
+                    CallableStatement cs = con.prepareCall("select MAX(idFactura) from Factura");
+                    ResultSet result = cs.executeQuery();
+                    if (result.next()) {
+                        ultimaFactura = result.getInt(1);
+                    }
+                    con.close();
+                    Integer cant = 0;
+                    for (Articulo a : listaDetalle) {
+                        cant = a.getCantidad();
+                        d = new Detalle(a.getPK_idArticulo(), ultimaFactura, Double.parseDouble(a.getPrecio()), a.getCantidad());
+                        detBL.insertar(d);
+                        a = articuloBLModelo.obtenerPorId(a);
+                        a.setCantidad(a.getCantidad() - cant);
+                        articuloBLModelo.modificar(a);
+
+                        JOptionPane.showMessageDialog(facturaView, "Facturado con exito", "Completado", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(FacturaControlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(facturaView, "La factura no esta completa", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
         if (e.getSource() == this.facturaView.btBuscarArticulo) {
             BuscaArticulo articuloBuscarView = new BuscaArticulo();
             BuscaArticuloControlador articuloBuscarControlador;
@@ -161,7 +204,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         }
 
         if (e.getSource() == facturaView.btAgregar) {
-            if (!facturaView.txtNombreArticulo.getText().isEmpty()) {
+            if (!facturaView.txtNombreArticulo.getText().isEmpty() && !facturaView.txtCantidad.getText().isEmpty() && facturaView.txtCantidad.getText().equals("0")) {
                 Articulo a = new Articulo();
                 a.setPK_idArticulo(Integer.parseInt(facturaView.txtIdArticulo.getText()));
                 try {
@@ -172,22 +215,21 @@ public class FacturaControlador implements ActionListener, DocumentListener {
                 if (Integer.parseInt(facturaView.txtCantidad.getText()) > a.getCantidad()) {
                     JOptionPane.showMessageDialog(facturaView, "La cantidad supera las existencias", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    a.setCantidad(a.getCantidad() - Integer.parseInt(facturaView.txtCantidad.getText()));
-                    try {
-                        if (a.getCantidad() <= 0) {
-                            articuloBLModelo.eliminar(a);
-                        } else {
-                            articuloBLModelo.modificar(a);
-                        }
-                    } catch (SQLException ex) {
-                        Logger.getLogger(FacturaControlador.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                     a.setCantidad(Integer.parseInt(facturaView.txtCantidad.getText()));
-                    listaDetalle.add(a);
+                    if (a.getCantidad() > 0) {
+                        listaDetalle.add(a);
+                    }else{
+                        JOptionPane.showMessageDialog(facturaView, "Debe indicar una cantidad valida", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 llenarTabla(facturaView.jTDetalle);
-            }else{
-                JOptionPane.showMessageDialog(facturaView, "Debe seleccionar un articulo", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                if (facturaView.txtNombreArticulo.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(facturaView, "Debe seleccionar un articulo", "Error", JOptionPane.ERROR_MESSAGE);
+
+                } else if (facturaView.txtCantidad.getText().isEmpty() || facturaView.txtCantidad.getText().equals("0")) {
+                    JOptionPane.showMessageDialog(facturaView, "Debe indicar la cantidad", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }
@@ -211,8 +253,9 @@ public class FacturaControlador implements ActionListener, DocumentListener {
     }
 
     private void cargaPrecio() {
-        this.facturaView.txtTotalArt.setText("" + Integer.parseInt(facturaView.txtCantidad.getText()) * Integer.parseInt(facturaView.txtValorUnitario.getText()));
-
+        if (!facturaView.txtValorUnitario.getText().isEmpty() && !facturaView.txtCantidad.getText().isEmpty()) {
+            this.facturaView.txtTotalArt.setText("" + Integer.parseInt(facturaView.txtCantidad.getText()) * Integer.parseInt(facturaView.txtValorUnitario.getText()));
+        }
     }
 
     private void cargarArticulo() {
@@ -223,7 +266,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
                 s = articuloBLModelo.obtenerPorId(s);
                 this.facturaView.txtNombreArticulo.setText(s.getNombre());
                 this.facturaView.txtValorUnitario.setText(s.getPrecio());
-                this.facturaView.txtTotalArt.setText("" + Integer.parseInt(s.getPrecio()) * Integer.parseInt(facturaView.txtCantidad.getText()));
+                cargaPrecio();
 
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(facturaView, "Error no se pudo consultar el articulo (" + ex.getMessage() + ")", "Error al cargar articulo", JOptionPane.ERROR_MESSAGE);

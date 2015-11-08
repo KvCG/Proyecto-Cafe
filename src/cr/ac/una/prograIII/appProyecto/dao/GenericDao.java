@@ -8,6 +8,7 @@ package cr.ac.una.prograIII.appProyecto.dao;
 import cr.ac.una.prograIII.appProyecto.domain.ArtProv;
 import cr.ac.una.prograIII.appProyecto.domain.Articulo;
 import cr.ac.una.prograIII.appProyecto.domain.Cliente;
+import cr.ac.una.prograIII.appProyecto.domain.Detalle;
 import cr.ac.una.prograIII.appProyecto.domain.Factura;
 import cr.ac.una.prograIII.appProyecto.domain.Proveedor;
 import java.sql.SQLException;
@@ -43,6 +44,10 @@ public class GenericDao {
         
         if(obj instanceof Factura){
             iBaseDao = new FacturaDao();
+        }
+        
+        if(obj instanceof Detalle){
+            iBaseDao = new DetalleDao();
         }
         iBaseDao.insertar(obj);
     }

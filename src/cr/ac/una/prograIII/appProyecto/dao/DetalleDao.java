@@ -30,17 +30,16 @@ public class DetalleDao implements IBaseDao<Detalle>{
     public void insertar(Detalle obj) throws SQLException {
         Connection con = conexion.getConexion();
         
-        CallableStatement cs = con.prepareCall("insert into Detalle (FK_PK_IdCliente,FK_PK_idArticulo,FK_PK_idFactura,"
+        CallableStatement cs = con.prepareCall("insert into Detalle (FK_PK_idArticulo,FK_PK_idFactura,"
                                              + "cantidad,precioUnitario,ultUsuario,"
                                              + "ultFecha) values "
-                                             + "(?,?,?,?,?,?,curdate())");
-        cs.setInt(1, obj.getIdCliente());
-        cs.setInt(2, obj.getIdArticulo());
-        cs.setInt(3, obj.getIdFactura());
-        cs.setInt(4, obj.getCantidad());
-        cs.setDouble(5, obj.getPrecioUnitario());;
-        cs.setString(6, obj.getUltUsuario());
-        cs.setString(7, obj.getUltFecha());
+                                             + "(?,?,?,?,?,curdate())");
+
+        cs.setInt(1, obj.getIdArticulo());
+        cs.setInt(2, obj.getIdFactura());
+        cs.setInt(3, obj.getCantidad());
+        cs.setDouble(4, obj.getPrecioUnitario());;
+        cs.setString(5, obj.getUltUsuario());
         cs.executeUpdate();
         con.close();
     }

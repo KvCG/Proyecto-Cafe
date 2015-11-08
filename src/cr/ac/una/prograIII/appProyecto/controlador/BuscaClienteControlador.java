@@ -10,19 +10,19 @@ import cr.ac.una.prograIII.appProyecto.domain.Cliente;
 import cr.ac.una.prograIII.appProyecto.vista.BuscaCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Kevin
  */
-public class BuscaClienteControlador implements ActionListener, KeyListener {
+public class BuscaClienteControlador implements ActionListener {
 
     private BuscaCliente busClienteView;
     private ClienteBL clienteBL;
@@ -34,7 +34,13 @@ public class BuscaClienteControlador implements ActionListener, KeyListener {
         this.repuesta = repuesta;
         this.busClienteView.btSeleccionar.addActionListener(this);
         llenarTabla(busClienteView.jTableCliente);
-        busClienteView.txtID.addKeyListener(this);
+        busClienteView.txtID.addCaretListener(new CaretListener() {
+
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                llenarTabla(busClienteView.jTableCliente);
+            }
+        });
     }
 
     public BuscaClienteControlador(BuscaCliente busClienteView, ClienteBL clienteBL) {
@@ -104,21 +110,6 @@ public class BuscaClienteControlador implements ActionListener, KeyListener {
 
     public void setRepuesta(JTextField repuesta) {
         this.repuesta = repuesta;
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        llenarTabla(busClienteView.jTableCliente);
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        llenarTabla(busClienteView.jTableCliente);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        llenarTabla(busClienteView.jTableCliente);
     }
 
 }
