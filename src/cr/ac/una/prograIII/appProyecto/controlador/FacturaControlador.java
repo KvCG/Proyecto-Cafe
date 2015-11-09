@@ -161,7 +161,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
                     Integer cant = 0;
                     for (Articulo a : listaDetalle) {
                         cant = a.getCantidad();
-                        d = new Detalle(a.getPK_idArticulo(), ultimaFactura, Double.parseDouble(a.getPrecio()), a.getCantidad());
+                        d = new Detalle(a.getPK_idArticulo(), ultimaFactura, Double.parseDouble(a.getPrecio()), cant);
                         detBL.insertar(d);
                         a = articuloBLModelo.obtenerPorId(a);
                         a.setCantidad(a.getCantidad() - cant);
@@ -204,7 +204,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         }
 
         if (e.getSource() == facturaView.btAgregar) {
-            if (!facturaView.txtNombreArticulo.getText().isEmpty() && !facturaView.txtCantidad.getText().isEmpty() && facturaView.txtCantidad.getText().equals("0")) {
+            if (!facturaView.txtNombreArticulo.getText().isEmpty() && !facturaView.txtCantidad.getText().isEmpty() && !facturaView.txtCantidad.getText().equals("0")) {
                 Articulo a = new Articulo();
                 a.setPK_idArticulo(Integer.parseInt(facturaView.txtIdArticulo.getText()));
                 try {
