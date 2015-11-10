@@ -64,6 +64,8 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         this.facturaView.btAgregar.addActionListener(this);
         this.facturaView.btEliminar.addActionListener(this);
         this.facturaView.btFacturar.addActionListener(this);
+        this.facturaView.agrega2.addActionListener(this);
+        this.facturaView.agrega2.setVisible(false);
         this.facturaView.txtCantidad.addCaretListener(new CaretListener() {
 
             @Override
@@ -202,8 +204,43 @@ public class FacturaControlador implements ActionListener, DocumentListener {
             }
             llenarTabla(facturaView.jTDetalle);
         }
+        
+        
+        if(e.getSource()==facturaView.agrega2){
+           // if (!facturaView.txtNombreArticulo.getText().isEmpty() && !facturaView.txtCantidad.getText().isEmpty() && !facturaView.txtCantidad.getText().equals("0")) {
+                Articulo a = new Articulo();
+                a.setPK_idArticulo(11);
+                try {
+                    a = articuloBLModelo.obtenerPorId(a);
+                } catch (SQLException ex) {
+                    Logger.getLogger(FacturaControlador.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //facturaView.txtCantidad.setText("2");
+                if (Integer.parseInt(facturaView.txtCantidad.getText()) > a.getCantidad()) {
+                    JOptionPane.showMessageDialog(facturaView, "La cantidad supera las existencias", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    a.setCantidad(Integer.parseInt(facturaView.txtCantidad.getText()));
+                    if (a.getCantidad() > 0) {
+                        listaDetalle.add(a);
+                    }else{
+                        JOptionPane.showMessageDialog(facturaView, "Debe indicar una cantidad valida", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                llenarTabla(facturaView.jTDetalle);
+           /* } else {
+                if (facturaView.txtNombreArticulo.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(facturaView, "Debe seleccionar un articulo", "Error", JOptionPane.ERROR_MESSAGE);
 
+                } else if (facturaView.txtCantidad.getText().isEmpty() || facturaView.txtCantidad.getText().equals("0")) {
+                    JOptionPane.showMessageDialog(facturaView, "Debe indicar la cantidad", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }*/
+            
+        }
         if (e.getSource() == facturaView.btAgregar) {
+              
+              
+            /****************************************************************************************/
             if (!facturaView.txtNombreArticulo.getText().isEmpty() && !facturaView.txtCantidad.getText().isEmpty() && !facturaView.txtCantidad.getText().equals("0")) {
                 Articulo a = new Articulo();
                 a.setPK_idArticulo(Integer.parseInt(facturaView.txtIdArticulo.getText()));

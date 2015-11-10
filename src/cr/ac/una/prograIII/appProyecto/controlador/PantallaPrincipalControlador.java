@@ -38,6 +38,9 @@ import javax.swing.table.TableColumnModel;
 public class PantallaPrincipalControlador implements ActionListener {
 
     private PantallaPrincipal PantallaPrinView;
+    
+    private int ini=0;
+    private int fin=0;
 
     public PantallaPrincipalControlador(PantallaPrincipal PantallaPrinView) {
         this.PantallaPrinView = PantallaPrinView;
@@ -53,6 +56,7 @@ public class PantallaPrincipalControlador implements ActionListener {
         this.PantallaPrinView.menuManteProveedor.addActionListener(this);
         this.PantallaPrinView.btEnviar.addActionListener(this);
         this.PantallaPrinView.btFacturar.addActionListener(this);
+        
         this.PantallaPrinView.txtMensaje.addFocusListener(new FocusListener() {
 
             @Override
@@ -75,6 +79,10 @@ public class PantallaPrincipalControlador implements ActionListener {
     public void setPantallaPrinView(PantallaPrincipal PantallaPrinView) {
         this.PantallaPrinView = PantallaPrinView;
     }
+    public double Redondear(double numero)
+{
+       return Math.rint(numero*100)/100;
+}
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -163,8 +171,34 @@ public class PantallaPrincipalControlador implements ActionListener {
             ArticuloBL arti = new ArticuloBL();
             FacturaView f= new FacturaView();
             ClienteBL c = new ClienteBL();
+            int fila = this.PantallaPrinView.jTPC.getSelectedRow();
+              if (fila != -1) {
+                  try{
+                    String t= this.PantallaPrinView.jTPC.getValueAt(fila, 4).toString();
+                      System.out.println();
+                    
+                  }catch(Exception er){
+                    JOptionPane.showMessageDialog(PantallaPrinView, "No  se puede Facturar Hora de internet","No ha finalizado el tiempo de uso",JOptionPane.ERROR_MESSAGE);
+                  }
+                  
+              }
+              
+              double total=(fin-ini)/60/60;
+              System.out.println(total);
+              Redondear(total);
+              System.out.println(Redondear(total));
+              //Math.round(total);
+              String t=String.valueOf(total);
+             // Math.round(total);
+              //int t=(int)total;
+              int indice=t.indexOf(".");
+              System.out.println(t.substring(0,indice));
+             
             FacturaControlador fc=new FacturaControlador(f,arti, c);
+            fc.getFactura().txtCantidad.setText(t.substring(0,indice));
             fc.getFactura().setVisible(true);
+            
+            f.agrega2.doClick();
         }
         if(e.getSource()==PantallaPrinView.btEnviar){
         
@@ -384,12 +418,15 @@ public class PantallaPrincipalControlador implements ActionListener {
                         this.nombrePC = mensajeEnPartes[1];
                         this.hoInicio=String.valueOf(fecha.getHours()+":"+fecha.getMinutes());
                         llenarTabla();// se llena la tabla de clientes
+                        ini=(fecha.getHours()*60*60)+(fecha.getMinutes()*60);
+                        
+                        
                     }
                     if(mensajeEnPartes[0].equals("D")){
                        this.estadoActivo=false;
                        this.hoFin=String.valueOf(fecha.getHours()+":"+fecha.getMinutes());
                        llenarTabla();
-                       
+                       fin=(fecha.getHours()*60*60)+(fecha.getMinutes()*60);
                        
                     }
                 }
