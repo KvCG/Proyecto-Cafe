@@ -5,8 +5,10 @@
  */
 package cr.ac.una.prograIII.appProyecto.test;
 
+import cr.ac.una.prograIII.appProyecto.controlador.ClienteThreadControlador;
 import cr.ac.una.prograIII.appProyecto.controlador.IncioControlador;
 import cr.ac.una.prograIII.appProyecto.domain.Reporte;
+import cr.ac.una.prograIII.appProyecto.vista.VentanaPc;
 import cr.ac.una.prograIII.appProyecto.vista1.PantallaInicio;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,6 +25,9 @@ public class ProyectoCafe {
         PantallaInicio pp = new PantallaInicio();
         IncioControlador i = new IncioControlador(pp);
         i.getPantInicio().setVisible(true);
+        VentanaPc vp = new VentanaPc();
+        ClienteThreadControlador c =  new ClienteThreadControlador(vp);
+        c.getVentanaPcView().setVisible(true);
 //        Reporte p = new Reporte();
 //        p.creaReporte("ListaClientes.jrxml");
         
