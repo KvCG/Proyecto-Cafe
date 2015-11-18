@@ -32,12 +32,18 @@ public class BuscaArticulo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTBuscarArticulo = new javax.swing.JTable();
         btSeleccionar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("BUSQUEDA DE ARTICULOS POR NOMBRE");
         setAlwaysOnTop(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        LbApellidos.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        LbApellidos.setForeground(new java.awt.Color(255, 255, 255));
         LbApellidos.setText("Nombre:");
+        getContentPane().add(LbApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 19, -1, -1));
+        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 16, 370, -1));
 
         jTBuscarArticulo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -52,6 +58,8 @@ public class BuscaArticulo extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTBuscarArticulo);
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 54, 429, 91));
+
         btSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/agregar.png"))); // NOI18N
         btSeleccionar.setText("Seleccionar");
         btSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -59,37 +67,10 @@ public class BuscaArticulo extends javax.swing.JFrame {
                 btSeleccionarActionPerformed(evt);
             }
         });
+        getContentPane().add(btSeleccionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(332, 163, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LbApellidos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btSeleccionar)
-                        .addGap(159, 159, 159)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LbApellidos)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btSeleccionar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/z6.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-390, -50, 840, 250));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -151,6 +132,7 @@ public class BuscaArticulo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LbApellidos;
     public javax.swing.JButton btSeleccionar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jTBuscarArticulo;
     public javax.swing.JTextField txtBuscar;

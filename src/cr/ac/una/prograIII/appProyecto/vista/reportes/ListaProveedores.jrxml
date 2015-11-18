@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c94e8ea-3a86-4d57-bca6-7a7cb944e533">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null"  pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" >
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -18,42 +18,64 @@ FROM
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="233" y="32" width="100" height="20" uuid="018675da-70a7-48ca-a25e-ad221f96b54a"/>
-				<text><![CDATA[Lsita de Proveedores]]></text>
+				<reportElement x="72" y="20" width="346" height="45" />
+				<textElement>
+					<font size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Proveedores]]></text>
 			</staticText>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="218" y="0" width="100" height="20" />
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date().toString()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="447" y="3" width="64" height="76" />
+				<imageExpression><![CDATA["D:\\D\\U\\Progra 3\\Proyecto Cafe\\src\\cr\\ac\\una\\prograIII\\appProyecto\\vista\\imagenes\\Reports.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="35" splitType="Stretch">
-			<textField pattern="dd/MM/yyyy h.mm a">
-				<reportElement x="233" y="10" width="100" height="20" uuid="b5e2974a-aca8-45cc-9a8c-8f4db3b52a21"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
 			<line>
-				<reportElement x="133" y="29" width="280" height="1" uuid="ff054f48-704f-49a1-9b96-772cae5e608b"/>
+				<reportElement x="0" y="5" width="555" height="1" />
 			</line>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="38" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<staticText>
-				<reportElement x="129" y="12" width="100" height="20" uuid="d00e6bb8-cc6d-48c8-bf46-f6a0b1a278dc"/>
+				<reportElement x="122" y="5" width="172" height="20" />
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
 				<text><![CDATA[Nombre del proveedor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="349" y="12" width="100" height="20" uuid="31beb0c1-e877-46cc-912f-96ffdb6f896b"/>
+				<reportElement x="312" y="5" width="100" height="20" />
+				<textElement>
+					<font size="14" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
 				<text><![CDATA[Descripcion]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="48" splitType="Stretch">
+		<band height="29" splitType="Stretch">
 			<textField>
-				<reportElement x="129" y="17" width="100" height="20" uuid="27f4a6ec-54ca-415a-996d-a34040fd2134"/>
+				<reportElement x="122" y="5" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{proveedor_nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="349" y="17" width="100" height="20" uuid="fbac9c6a-b717-4255-9afb-3eb6f1813f05"/>
+				<reportElement x="312" y="5" width="100" height="20" />
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{proveedor_descripcion}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -62,7 +84,12 @@ FROM
 		<band height="45" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="446" y="27" width="100" height="20" />
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band height="42" splitType="Stretch"/>

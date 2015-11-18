@@ -9,27 +9,32 @@ import cr.ac.una.prograIII.appProyecto.bl.ArtProvBL;
 import cr.ac.una.prograIII.appProyecto.bl.ArticuloBL;
 import cr.ac.una.prograIII.appProyecto.bl.ClienteBL;
 import cr.ac.una.prograIII.appProyecto.bl.ProveedorBL;
+import cr.ac.una.prograIII.appProyecto.domain.Reporte;
 import cr.ac.una.prograIII.appProyecto.vista.FacturaView;
 import cr.ac.una.prograIII.appProyecto.vista.ManteArtProv;
 import cr.ac.una.prograIII.appProyecto.vista.ManteArticulo;
 import cr.ac.una.prograIII.appProyecto.vista.ManteProveedor;
 import cr.ac.una.prograIII.appProyecto.vista.PantallaPrincipal;
-import cr.ac.una.prograIII.appProyecto.vista1.ManteCliente;
+import cr.ac.una.prograIII.appProyecto.vista.ManteCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -45,7 +50,6 @@ public class PantallaPrincipalControlador implements ActionListener {
     public PantallaPrincipalControlador(PantallaPrincipal PantallaPrinView) {
         this.PantallaPrinView = PantallaPrinView;
         this.PantallaPrinView.btLimpiarPantalla.addActionListener(this);
-        this.PantallaPrinView.btUsuariosEnLinea.setVisible(false);
         this.PantallaPrinView.btIniciarServidor.addActionListener(this);
         this.PantallaPrinView.btDetenerServidor.addActionListener(this);
         this.PantallaPrinView.btDesbloquear.addActionListener(this);
@@ -56,6 +60,10 @@ public class PantallaPrincipalControlador implements ActionListener {
         this.PantallaPrinView.menuManteProveedor.addActionListener(this);
         this.PantallaPrinView.btEnviar.addActionListener(this);
         this.PantallaPrinView.btFacturar.addActionListener(this);
+        this.PantallaPrinView.mReporteClientes.addActionListener(this);
+        this.PantallaPrinView.mReporteArticulos.addActionListener(this);
+        this.PantallaPrinView.mReporteFacturas.addActionListener(this);
+        this.PantallaPrinView.mReporteProveedores.addActionListener(this);
 
         this.PantallaPrinView.txtMensaje.addFocusListener(new FocusListener() {
 
@@ -69,7 +77,9 @@ public class PantallaPrincipalControlador implements ActionListener {
                 PantallaPrinView.txtMensaje.setText("Mensaje");
             }
         });
-
+        this.PantallaPrinView.btIniciarServidor.doClick();
+        this.PantallaPrinView.btIniciarServidor.setVisible(false);
+        this.PantallaPrinView.btDetenerServidor.setVisible(false);
     }
 
     public PantallaPrincipal getPantallaPrinView() {
@@ -80,12 +90,49 @@ public class PantallaPrincipalControlador implements ActionListener {
         this.PantallaPrinView = PantallaPrinView;
     }
 
-    public double Redondear(double numero) {
-        return Math.rint(numero * 100) / 100;
+    public Integer horaInicial() {
+        Calendar c1 = Calendar.getInstance();
+        int hora = c1.get(Calendar.HOUR_OF_DAY);
+        int min = c1.get(Calendar.MINUTE);
+        return ((hora * 60) + min);
+    }
+
+    public Integer horaFinal() {
+        Calendar c1 = Calendar.getInstance();
+        int hora = c1.get(Calendar.HOUR_OF_DAY);
+        int min = c1.get(Calendar.MINUTE);
+        return (hora * 60) + min;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == PantallaPrinView.mReporteClientes) {
+            Reporte p = new Reporte();
+            try {
+                p.creaReporte("ListaClientes.jrxml");
+            } catch (IOException | JRException | SQLException ex) {
+                Logger.getLogger(PantallaPrincipalControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (e.getSource() == PantallaPrinView.mReporteArticulos) {
+            Reporte p = new Reporte();
+            try {
+                p.creaReporte("ListaArticulos.jrxml");
+            } catch (IOException | JRException | SQLException ex) {
+                Logger.getLogger(PantallaPrincipalControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        if (e.getSource() == PantallaPrinView.mReporteProveedores) {
+            Reporte p = new Reporte();
+            try {
+                p.creaReporte("ListaProveedores.jrxml");
+            } catch (IOException | JRException | SQLException ex) {
+                Logger.getLogger(PantallaPrincipalControlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
         if (e.getSource() == PantallaPrinView.menuManteCliente) {
             ManteCliente manteClienteView = new ManteCliente();
             ClienteBL clienteBLModelo = new ClienteBL();
@@ -117,18 +164,13 @@ public class PantallaPrincipalControlador implements ActionListener {
         if (e.getSource() == PantallaPrinView.btLimpiarPantalla) {
             PantallaPrinView.Chat_Servidor.setText("");
         }
-        if (e.getSource() == PantallaPrinView.btUsuariosEnLinea) {
-            for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
-                if (cliente.getEstadoActivo()) {
-                    System.out.println("Cliente PC nombre:" + cliente.getNombrePC());
-                }
-            }
-        }
+
         if (e.getSource() == this.PantallaPrinView.btIniciarServidor) {
             Thread starter = new Thread(new PantallaPrincipalControlador.ServerStart());
             starter.start();
             PantallaPrinView.Chat_Servidor.append("Servidor Iniciado...\n");
         }
+
         if (e.getSource() == PantallaPrinView.btDetenerServidor) {
             try {
                 Thread.sleep(2000);                 //2000 milliseconds is five second.
@@ -143,65 +185,59 @@ public class PantallaPrincipalControlador implements ActionListener {
         if (e.getSource() == PantallaPrinView.btDesbloquear) {
             try {
                 int fila = PantallaPrinView.jTPC.getSelectedRow();
-                String ipSeleccionada = PantallaPrinView.jTPC.getValueAt(fila, 1).toString();
-                String nombrePCSeleccionado = PantallaPrinView.jTPC.getValueAt(fila, 0).toString();
+                if (fila != -1) {
+                    String ipSeleccionada = PantallaPrinView.jTPC.getValueAt(fila, 1).toString();
+                    String nombrePCSeleccionado = PantallaPrinView.jTPC.getValueAt(fila, 0).toString();
 
-                //*****************************************************
-                //se recorre la lista de clientes y se verifica a cual
-                //sokect se le quiere enviar el mensaja (el seleccionado 
-                //en la tabla)
-                //*****************************************************
-                for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
-                    //se optiene la IP del sokect para compararla con la seleccionada
-                    String ipCliente = cliente.getSock().getInetAddress().toString();
-                    if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
-                        //si el sokect es la tiene la ip seleccionada
-                        //se le envia un mensaje
-                        PrintWriter writer = new PrintWriter(cliente.getSock().getOutputStream());
-                        writer.println("1UL");
-                        writer.flush();
+                    //*****************************************************
+                    //se recorre la lista de clientes y se verifica a cual
+                    //sokect se le quiere enviar el mensaja (el seleccionado 
+                    //en la tabla)
+                    //*****************************************************
+                    for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
+                        //se optiene la IP del sokect para compararla con la seleccionada
+                        String ipCliente = cliente.getSock().getInetAddress().toString();
+                        if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
+                            Calendar c = Calendar.getInstance();
+                            cliente.setHoInicio(Integer.toString(c.get(Calendar.HOUR)) + ":" + Integer.toString(c.get(Calendar.MINUTE)));
+                            cliente.setEstadoActivo(true);
+                            //si el sokect es la tiene la ip seleccionada
+                            //se le envia un mensaje
+
+                            PrintWriter writer = new PrintWriter(cliente.getSock().getOutputStream());
+                            writer.println("1UL");
+                            ini = horaInicial();
+
+                            writer.flush();
+                        }
                     }
                 }
             } catch (Exception el) {
 
             }
-
+            llenarTabla();
         }
+
         if (e.getSource() == PantallaPrinView.btFacturar) {
             ArticuloBL arti = new ArticuloBL();
             FacturaView f = new FacturaView();
             ClienteBL c = new ClienteBL();
             int fila = this.PantallaPrinView.jTPC.getSelectedRow();
             if (fila != -1) {
-                try {
-                    String t = this.PantallaPrinView.jTPC.getValueAt(fila, 4).toString();
-                    System.out.println();
-
-                } catch (Exception er) {
-                    JOptionPane.showMessageDialog(PantallaPrinView, "No  se puede Facturar Hora de internet", "No ha finalizado el tiempo de uso", JOptionPane.ERROR_MESSAGE);
-                }
-                double total = (fin - ini) / 60 / 60;
+                Integer total = (fin - ini);
                 System.out.println(total);
-                Redondear(total);
-                System.out.println(Redondear(total));
-                //Math.round(total);
-                String t = String.valueOf(total);
-             // Math.round(total);
-                //int t=(int)total;
-                int indice = t.indexOf(".");
-                System.out.println(t.substring(0, indice));
-
                 FacturaControlador fc = new FacturaControlador(f, arti, c);
-                fc.getFactura().txtCantidad.setText(t.substring(0, indice));
+                fc.getFactura().setVisible(true);
+                fc.getFactura().txtCantidad.setText(total.toString());
+                f.agrega2.doClick();
 
+            } else {
+                FacturaControlador fc = new FacturaControlador(f, arti, c);
+                fc.getFactura().setVisible(true);
             }
 
-            FacturaControlador fc = new FacturaControlador(f, arti, c);
-            fc.getFactura().setVisible(true);
-
-            f.agrega2.doClick();
-            
         }
+
         if (e.getSource() == PantallaPrinView.btEnviar) {
 
             int fila = PantallaPrinView.jTPC.getSelectedRow();
@@ -221,6 +257,7 @@ public class PantallaPrincipalControlador implements ActionListener {
                         if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
                             //si el sokect es la tiene la ip seleccionada
                             //se le envia un mensaje
+
                             PrintWriter writer = new PrintWriter(cliente.getSock().getOutputStream());
                             writer.println("Servidor: " + PantallaPrinView.txtMensaje.getText());
                             writer.flush();
@@ -253,8 +290,12 @@ public class PantallaPrincipalControlador implements ActionListener {
                         if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
                             //si el sokect es la tiene la ip seleccionada
                             //se le envia un mensaje
+                            Calendar c = Calendar.getInstance();
+                            cliente.setHoFin(Integer.toString(c.get(Calendar.HOUR)) + ":" + Integer.toString(c.get(Calendar.MINUTE)));
+                            cliente.setEstadoActivo(false);
                             PrintWriter writer = new PrintWriter(cliente.getSock().getOutputStream());
                             writer.println("1BL");
+                            fin = horaFinal();
                             writer.flush();
                         }
                     }
@@ -262,6 +303,7 @@ public class PantallaPrincipalControlador implements ActionListener {
 
                 }
             }
+            llenarTabla();
         }
     } //Action listener ends here
 
@@ -282,6 +324,7 @@ public class PantallaPrincipalControlador implements ActionListener {
                     //se crea un nuevo cliente
                     PrintWriter writer = new PrintWriter(clientSock.getOutputStream());
                     PantallaPrincipalControlador.ClienteHilo cliente = new PantallaPrincipalControlador.ClienteHilo(clientSock, writer);
+
                     listaClientes.add(cliente);
 
                     //se crea un nuevo hilo para el nuevo socket creado, 
@@ -354,8 +397,12 @@ public class PantallaPrincipalControlador implements ActionListener {
             for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
 
                 fila[0] = cliente.getNombrePC();
-                fila[1] = cliente.getSock().getInetAddress().toString();
-                fila[2] = cliente.getEstadoActivo().toString();
+                fila[1] = cliente.getSock().getInetAddress().toString().replace("/", "");
+                if (cliente.getEstadoActivo()) {
+                    fila[2] = "En uso";
+                } else {
+                    fila[2] = "Libre";
+                }
                 fila[3] = cliente.getHoInicio();
                 fila[4] = cliente.getHoFin();
 
@@ -364,6 +411,7 @@ public class PantallaPrincipalControlador implements ActionListener {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error (llenarTabla):" + ex.getMessage(), "Error en llenarTabla", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -374,18 +422,18 @@ public class PantallaPrincipalControlador implements ActionListener {
 
     public class ClienteHilo implements Runnable {
 
+        private String hoInicio;
+        private String hoFin;
         private BufferedReader reader;
         private Socket sock;
         private PrintWriter printWriter;
-        private String hoInicio = "";
-        private String hoFin = "";
         private Calendar calendario = Calendar.getInstance();
         private Boolean estadoActivo;
         private String nombrePC;
 
         public ClienteHilo(Socket clientSocket, PrintWriter printWriter) {
             this.printWriter = printWriter;
-            this.estadoActivo = true;
+            this.estadoActivo = false;
             try {
                 sock = clientSocket;
                 InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
@@ -412,22 +460,18 @@ public class PantallaPrincipalControlador implements ActionListener {
                     //El mensaje se muestra en el Texto de mensajes
                     //aca se deberia codificar que se quiere hacer
                     //*****************************************************
-                    PantallaPrinView.Chat_Servidor.append("Recibido: " + message + "\n");
-                    Date fecha = new Date();
+                    PantallaPrinView.Chat_Servidor.append("Administrador: " + message + "\n");
+
                     //Se decodifica el mensaje
                     String mensajeEnPartes[] = message.split(":");
                     if (mensajeEnPartes[0].equals("N")) {//nuevo usuario
                         this.nombrePC = mensajeEnPartes[1];
-                        this.hoInicio = String.valueOf(fecha.getHours() + ":" + fecha.getMinutes());
                         llenarTabla();// se llena la tabla de clientes
-                        ini = (fecha.getHours() * 60 * 60) + (fecha.getMinutes() * 60);
 
                     }
                     if (mensajeEnPartes[0].equals("D")) {
                         this.estadoActivo = false;
-                        this.hoFin = String.valueOf(fecha.getHours() + ":" + fecha.getMinutes());
                         llenarTabla();
-                        fin = (fecha.getHours() * 60 * 60) + (fecha.getMinutes() * 60);
 
                     }
                 }
@@ -435,6 +479,22 @@ public class PantallaPrincipalControlador implements ActionListener {
                 PantallaPrinView.Chat_Servidor.append("conexion perdida. \n");
                 ex.printStackTrace();
             }
+        }
+
+        public String getHoInicio() {
+            return hoInicio;
+        }
+
+        public void setHoInicio(String hoInicio) {
+            this.hoInicio = hoInicio;
+        }
+
+        public String getHoFin() {
+            return hoFin;
+        }
+
+        public void setHoFin(String hoFin) {
+            this.hoFin = hoFin;
         }
 
         public BufferedReader getReader() {
@@ -459,22 +519,6 @@ public class PantallaPrincipalControlador implements ActionListener {
 
         public void setPrintWriter(PrintWriter printWriter) {
             this.printWriter = printWriter;
-        }
-
-        public String getHoInicio() {
-            return hoInicio;
-        }
-
-        public void setHoInicio(String hoInicio) {
-            this.hoInicio = hoInicio;
-        }
-
-        public String getHoFin() {
-            return hoFin;
-        }
-
-        public void setHoFin(String hoFin) {
-            this.hoFin = hoFin;
         }
 
         public Calendar getCalendario() {

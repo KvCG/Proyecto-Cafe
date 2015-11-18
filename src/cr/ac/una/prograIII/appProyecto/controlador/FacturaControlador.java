@@ -125,7 +125,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         modeloTabla.addColumn("Nombre articulo");
         modeloTabla.addColumn("Cantidad");
         modeloTabla.addColumn("Precio Unidad");
-        Integer total = 0;
+        Double total = 0.0;
 
         Object fila[] = new Object[4];
 
@@ -136,7 +136,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
             fila[2] = a.getCantidad();
             fila[3] = a.getPrecio();
             modeloTabla.addRow(fila);
-            total += a.getCantidad() * Integer.parseInt(a.getPrecio());
+            total += a.getCantidad() * Double.parseDouble(a.getPrecio());
             facturaView.txtTotal.setText(total.toString());
         }
 
@@ -197,9 +197,9 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         if (e.getSource() == facturaView.btEliminar) {
             int fila = this.facturaView.jTDetalle.getSelectedRow();
             if (fila != -1) {
-                Integer sustraendo = Integer.parseInt(this.facturaView.jTDetalle.getValueAt(fila, 3).toString()) * Integer.parseInt(this.facturaView.jTDetalle.getValueAt(fila, 2).toString());
-                Integer total = Integer.parseInt(facturaView.txtTotal.getText());
-                facturaView.txtTotal.setText(Integer.toString(total - sustraendo));
+                Double sustraendo = Double.parseDouble(this.facturaView.jTDetalle.getValueAt(fila, 3).toString()) * Double.parseDouble(this.facturaView.jTDetalle.getValueAt(fila, 2).toString());
+                Double total = Double.parseDouble(facturaView.txtTotal.getText());
+                facturaView.txtTotal.setText(Double.toString(total - sustraendo));
                 listaDetalle.remove(fila);
             }
             llenarTabla(facturaView.jTDetalle);
@@ -209,7 +209,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
         if(e.getSource()==facturaView.agrega2){
            // if (!facturaView.txtNombreArticulo.getText().isEmpty() && !facturaView.txtCantidad.getText().isEmpty() && !facturaView.txtCantidad.getText().equals("0")) {
                 Articulo a = new Articulo();
-                a.setPK_idArticulo(11);
+                a.setPK_idArticulo(14);
                 try {
                     a = articuloBLModelo.obtenerPorId(a);
                 } catch (SQLException ex) {
@@ -291,7 +291,7 @@ public class FacturaControlador implements ActionListener, DocumentListener {
 
     private void cargaPrecio() {
         if (!facturaView.txtValorUnitario.getText().isEmpty() && !facturaView.txtCantidad.getText().isEmpty()) {
-            this.facturaView.txtTotalArt.setText("" + Integer.parseInt(facturaView.txtCantidad.getText()) * Integer.parseInt(facturaView.txtValorUnitario.getText()));
+            this.facturaView.txtTotalArt.setText("" + Integer.parseInt(facturaView.txtCantidad.getText()) * Double.parseDouble(facturaView.txtValorUnitario.getText()));
         }
     }
 

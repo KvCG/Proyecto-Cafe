@@ -34,11 +34,12 @@ public class PantallaInicio extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         txtPass = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(415, 305));
+        setPreferredSize(new java.awt.Dimension(400, 330));
         setResizable(false);
-        setSize(new java.awt.Dimension(400, 300));
+        setSize(new java.awt.Dimension(400, 330));
         getContentPane().setLayout(null);
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -54,20 +55,23 @@ public class PantallaInicio extends javax.swing.JFrame {
         btIniciarSesion.setBackground(new java.awt.Color(255, 255, 255));
         btIniciarSesion.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btIniciarSesion.setForeground(new java.awt.Color(0, 0, 204));
-        btIniciarSesion.setIcon(new javax.swing.ImageIcon("D:\\Descargas\\U\\Iconos para proyectos\\1446542797_Login_in.png")); // NOI18N
+        btIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/1446542797_Login_in.png"))); // NOI18N
         btIniciarSesion.setText("Iniciar sesion");
         getContentPane().add(btIniciarSesion);
-        btIniciarSesion.setBounds(130, 160, 140, 41);
+        btIniciarSesion.setBounds(130, 151, 140, 40);
         getContentPane().add(txtUsuario);
         txtUsuario.setBounds(190, 90, 90, 20);
 
         txtPass.setText("jPasswordField1");
         getContentPane().add(txtPass);
         txtPass.setBounds(190, 120, 90, 20);
-
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Descargas\\U\\Iconos para proyectos\\rog___windows_7_logon_by_ultimatedesktops-d5zwh9b.png")); // NOI18N
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 400, 300);
+        jLabel3.setBounds(0, 0, 400, 0);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/LogIn.png"))); // NOI18N
+        jLabel5.setRequestFocusEnabled(false);
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(0, 0, 400, 300);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -112,6 +116,7 @@ public class PantallaInicio extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     public javax.swing.JPasswordField txtPass;
     public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables

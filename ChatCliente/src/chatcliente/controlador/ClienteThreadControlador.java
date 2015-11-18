@@ -62,7 +62,7 @@ public class ClienteThreadControlador implements ActionListener {
     }
 
     public void sendDisconnect() {
-        String bye = ("D:"+NombUsuario + ": :Desconectado");
+        String bye = ("D:" + NombUsuario+ ": :Desconectado");
         try {
             writer.println(bye);
             writer.flush();
@@ -73,12 +73,12 @@ public class ClienteThreadControlador implements ActionListener {
 
     public void Disconnect() {
         try {
-            ventanaPcView.Chat_Cliente.append("\n "+ventanaPcView.txtNombreUsuario.getText()+" Te has Desconectado.\n");
+            ventanaPcView.Chat_Cliente.append("\n " + ventanaPcView.txtNombreUsuario.getText() + " Te has Desconectado.\n");
             sock.close();
             reader.close();
             writer.close();
         } catch (Exception ex) {
-            ventanaPcView.Chat_Cliente.append("fallo al Desconectar. \n");
+            ventanaPcView.Chat_Cliente.append("Fallo al Desconectar. \n");
         }
         EnLinea = false;
         ventanaPcView.txtNombreUsuario.setEditable(true);
@@ -97,7 +97,7 @@ public class ClienteThreadControlador implements ActionListener {
 
                     if (stream.equals("1BL")) {
                         bloqControl.getJframe().setVisible(true);
-                        bloqControl.block();
+                        //bloqControl.block();
                         sleep(10000);
                         stream = "";
                         bloqControl.getJframe().dispose();
@@ -123,36 +123,32 @@ public class ClienteThreadControlador implements ActionListener {
         this.ventanaPcView.btConectar.addActionListener(this);
         this.ventanaPcView.btDesconectar.addActionListener(this);
         this.ventanaPcView.btEnviar.addActionListener(this);
+        this.ventanaPcView.btConectar.doClick();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == ventanaPcView.btConectar) {
             if (EnLinea == false) {
+                bloqControl.getJframe().setVisible(false);
+                //bloqControl.block();
                 NombUsuario = ventanaPcView.txtNombreUsuario.getText();
+                NombUsuario = "PC1";
                 //Direccion=this.ventanaPcView.txtDireccionIP.getText();
                 ventanaPcView.txtNombreUsuario.setEditable(false);
-                
-
                 try {
                     //Se crea el sokect
-                    
                     sock = new Socket(Direccion, puerto);
                     InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
                     reader = new BufferedReader(streamreader);
-
-                //se envia un mensaje al servidor codificando que se 
+                    //se envia un mensaje al servidor codificando que se 
                     //conecto un nuevo cliente indicando al inicio del mensaje
                     //"N:" lo que indica Nuevo usuario, despues va el nombre del usuario
                     writer = new PrintWriter(sock.getOutputStream());
                     writer.println("N:" + NombUsuario + ":te has conectado.:Conectado");
                     writer.flush();
-
-                    ventanaPcView.Chat_Cliente.append("Bienvenido "+ventanaPcView.txtNombreUsuario.getText()+" usted se ha conectado al servidor \n");
-
-
+                    ventanaPcView.Chat_Cliente.append("Bienvenido " + ventanaPcView.txtNombreUsuario.getText() + " usted se ha conectado al servidor \n");
                     EnLinea = true;
-                   
                 } catch (Exception ex) {
                     ventanaPcView.Chat_Cliente.append("no se a podido conectar puebe nuevamente \n");
                     ventanaPcView.txtNombreUsuario.setEditable(true);

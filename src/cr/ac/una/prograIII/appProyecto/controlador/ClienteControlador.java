@@ -8,7 +8,7 @@ package cr.ac.una.prograIII.appProyecto.controlador;
 import cr.ac.una.prograIII.appProyecto.bl.ClienteBL;
 import cr.ac.una.prograIII.appProyecto.domain.Cliente;
 import cr.ac.una.prograIII.appProyecto.vista.BuscaCliente;
-import cr.ac.una.prograIII.appProyecto.vista1.ManteCliente;
+import cr.ac.una.prograIII.appProyecto.vista.ManteCliente;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;

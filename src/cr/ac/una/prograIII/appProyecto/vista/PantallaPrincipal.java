@@ -33,34 +33,29 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         jButton1 = new javax.swing.JButton();
         jMenuItem3 = new javax.swing.JMenuItem();
         btLimpiarPantalla = new javax.swing.JButton();
-        btIniciarServidor = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTPC = new javax.swing.JTable();
+        btIniciarServidor = new javax.swing.JButton();
         btDetenerServidor = new javax.swing.JButton();
         btBloquear = new javax.swing.JButton();
         btDesbloquear = new javax.swing.JButton();
         btEnviar = new javax.swing.JButton();
-        txtMensaje = new javax.swing.JTextField();
         btFacturar = new javax.swing.JButton();
+        txtMensaje = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         Chat_Servidor = new javax.swing.JTextArea();
-        btUsuariosEnLinea = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         MenuBarPrincipal = new javax.swing.JMenuBar();
         menuMantenimientos = new javax.swing.JMenu();
         menuManteCliente = new javax.swing.JMenuItem();
         menuManteArticulo = new javax.swing.JMenuItem();
         menuManteProveedor = new javax.swing.JMenuItem();
         menuManteArtProv = new javax.swing.JMenuItem();
-        MenuFacturacion = new javax.swing.JMenu();
-        menuFacturar = new javax.swing.JMenuItem();
-        MenuBuscar = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
         MenuReportes = new javax.swing.JMenu();
-        jMenu13 = new javax.swing.JMenu();
-        jMenu14 = new javax.swing.JMenu();
-        jMenu16 = new javax.swing.JMenu();
+        mReporteClientes = new javax.swing.JMenuItem();
+        mReporteArticulos = new javax.swing.JMenuItem();
+        mReporteFacturas = new javax.swing.JMenuItem();
+        mReporteProveedores = new javax.swing.JMenuItem();
 
         jMenu4.setText("jMenu4");
 
@@ -75,7 +70,10 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btLimpiarPantalla.setBackground(new java.awt.Color(255, 255, 255));
         btLimpiarPantalla.setText("Limpiar pantalla");
         btLimpiarPantalla.setPreferredSize(new java.awt.Dimension(115, 23));
         btLimpiarPantalla.addActionListener(new java.awt.event.ActionListener() {
@@ -83,9 +81,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                 btLimpiarPantallaActionPerformed(evt);
             }
         });
-
-        btIniciarServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/chronometer.png"))); // NOI18N
-        btIniciarServidor.setText("Iniciar ");
+        getContentPane().add(btLimpiarPantalla, new org.netbeans.lib.awtextra.AbsoluteConstraints(372, 274, 145, -1));
 
         jTPC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -97,26 +93,44 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         ));
         jScrollPane2.setViewportView(jTPC);
 
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 303, 505, 107));
+
+        btIniciarServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/chronometer.png"))); // NOI18N
+        btIniciarServidor.setText("Iniciar ");
+        getContentPane().add(btIniciarServidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 417, 25, 27));
+
         btDetenerServidor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/media_playback_stop.png"))); // NOI18N
         btDetenerServidor.setText("Detener ");
+        getContentPane().add(btDetenerServidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 427, 23, 20));
 
-        btBloquear.setIcon(new javax.swing.ImageIcon("D:\\Descargas\\U\\Iconos para proyectos\\1445654832_locked.png")); // NOI18N
+        btBloquear.setBackground(new java.awt.Color(255, 255, 255));
+        btBloquear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/Block.png"))); // NOI18N
         btBloquear.setText("Bloquear");
+        getContentPane().add(btBloquear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 161, -1));
 
-        btDesbloquear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/unlock.png"))); // NOI18N
+        btDesbloquear.setBackground(new java.awt.Color(255, 255, 255));
+        btDesbloquear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/Desblock.png"))); // NOI18N
         btDesbloquear.setText("Desbloquear");
         btDesbloquear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDesbloquearActionPerformed(evt);
             }
         });
+        getContentPane().add(btDesbloquear, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        btEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/mail.png"))); // NOI18N
+        btEnviar.setBackground(new java.awt.Color(255, 255, 255));
+        btEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/EnviarMensaje.png"))); // NOI18N
         btEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btEnviarActionPerformed(evt);
             }
         });
+        getContentPane().add(btEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 416, 48, 35));
+
+        btFacturar.setBackground(new java.awt.Color(255, 255, 255));
+        btFacturar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/1445655204_bill.png"))); // NOI18N
+        btFacturar.setText("Facturar");
+        getContentPane().add(btFacturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(367, 10, 150, -1));
 
         txtMensaje.setText("Mensaje");
         txtMensaje.addActionListener(new java.awt.event.ActionListener() {
@@ -124,21 +138,28 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
                 txtMensajeActionPerformed(evt);
             }
         });
-
-        btFacturar.setText("Facturar");
+        getContentPane().add(txtMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 416, 211, 35));
 
         Chat_Servidor.setEditable(false);
         Chat_Servidor.setColumns(20);
         Chat_Servidor.setRows(5);
         jScrollPane1.setViewportView(Chat_Servidor);
 
-        btUsuariosEnLinea.setText("jButton2");
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 505, 160));
 
-        MenuBarPrincipal.setBackground(new java.awt.Color(0, 255, 204));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/portada8.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 460));
 
+        MenuBarPrincipal.setBackground(new java.awt.Color(0, 0, 0));
+        MenuBarPrincipal.setBorder(new javax.swing.border.MatteBorder(null));
+        MenuBarPrincipal.setForeground(new java.awt.Color(255, 255, 255));
+
+        menuMantenimientos.setForeground(new java.awt.Color(255, 255, 255));
         menuMantenimientos.setText("Mantenimientos");
 
         menuManteCliente.setBackground(new java.awt.Color(255, 255, 255));
+        menuManteCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/user.png"))); // NOI18N
         menuManteCliente.setText("Cliente");
         menuManteCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,6 +169,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         menuMantenimientos.add(menuManteCliente);
 
         menuManteArticulo.setBackground(new java.awt.Color(255, 255, 255));
+        menuManteArticulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/ManteArticulo.png"))); // NOI18N
         menuManteArticulo.setText("Articulo");
         menuManteArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +179,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         menuMantenimientos.add(menuManteArticulo);
 
         menuManteProveedor.setBackground(new java.awt.Color(255, 255, 255));
+        menuManteProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/call-center-icon.png"))); // NOI18N
         menuManteProveedor.setText("Proveedor");
         menuManteProveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,6 +189,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
         menuMantenimientos.add(menuManteProveedor);
 
         menuManteArtProv.setBackground(new java.awt.Color(255, 255, 255));
+        menuManteArtProv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/providers.png"))); // NOI18N
         menuManteArtProv.setText("Articulo por Proveedor");
         menuManteArtProv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,105 +200,52 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
 
         MenuBarPrincipal.add(menuMantenimientos);
 
-        MenuFacturacion.setText("Facturacion");
-
-        menuFacturar.setText("Facturar");
-        MenuFacturacion.add(menuFacturar);
-
-        MenuBarPrincipal.add(MenuFacturacion);
-
-        MenuBuscar.setText("Buscar");
-
-        jMenuItem10.setText("Usuario");
-        MenuBuscar.add(jMenuItem10);
-
-        jMenuItem11.setText("Cliente");
-        MenuBuscar.add(jMenuItem11);
-
-        jMenuItem12.setText("Proveedor");
-        MenuBuscar.add(jMenuItem12);
-
-        MenuBarPrincipal.add(MenuBuscar);
-
+        MenuReportes.setForeground(new java.awt.Color(255, 255, 255));
         MenuReportes.setText("Reportes");
 
-        jMenu13.setText("Facturas");
-        MenuReportes.add(jMenu13);
+        mReporteClientes.setBackground(new java.awt.Color(255, 255, 255));
+        mReporteClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/Reports.png"))); // NOI18N
+        mReporteClientes.setText("Clientes");
+        mReporteClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mReporteClientesActionPerformed(evt);
+            }
+        });
+        MenuReportes.add(mReporteClientes);
 
-        jMenu14.setText("Clientes");
-        MenuReportes.add(jMenu14);
+        mReporteArticulos.setBackground(new java.awt.Color(255, 255, 255));
+        mReporteArticulos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/Reports.png"))); // NOI18N
+        mReporteArticulos.setText("Articulos");
+        mReporteArticulos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mReporteArticulosActionPerformed(evt);
+            }
+        });
+        MenuReportes.add(mReporteArticulos);
 
-        jMenu16.setText("Articulos");
-        MenuReportes.add(jMenu16);
+        mReporteFacturas.setBackground(new java.awt.Color(255, 255, 255));
+        mReporteFacturas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/Reports.png"))); // NOI18N
+        mReporteFacturas.setText("Facturas");
+        mReporteFacturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mReporteFacturasActionPerformed(evt);
+            }
+        });
+        MenuReportes.add(mReporteFacturas);
+
+        mReporteProveedores.setBackground(new java.awt.Color(255, 255, 255));
+        mReporteProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cr/ac/una/prograIII/appProyecto/vista/imagenes/Reports.png"))); // NOI18N
+        mReporteProveedores.setText("Proveedores");
+        mReporteProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mReporteProveedoresActionPerformed(evt);
+            }
+        });
+        MenuReportes.add(mReporteProveedores);
 
         MenuBarPrincipal.add(MenuReportes);
 
         setJMenuBar(MenuBarPrincipal);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btLimpiarPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btDesbloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btIniciarServidor))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btBloquear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btFacturar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btUsuariosEnLinea)))
-                                .addComponent(btDetenerServidor)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btBloquear, btDesbloquear, btDetenerServidor, btIniciarServidor});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btDesbloquear)
-                        .addGap(16, 16, 16)
-                        .addComponent(btIniciarServidor))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btBloquear)
-                                .addComponent(btUsuariosEnLinea))
-                            .addComponent(btFacturar))
-                        .addGap(16, 16, 16)
-                        .addComponent(btDetenerServidor)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btLimpiarPantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMensaje, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btEnviar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btBloquear, btDesbloquear, btDetenerServidor, btIniciarServidor});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -310,6 +281,22 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
     private void txtMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMensajeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMensajeActionPerformed
+
+    private void mReporteClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mReporteClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mReporteClientesActionPerformed
+
+    private void mReporteArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mReporteArticulosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mReporteArticulosActionPerformed
+
+    private void mReporteFacturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mReporteFacturasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mReporteFacturasActionPerformed
+
+    private void mReporteProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mReporteProveedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mReporteProveedoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,9 +343,7 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextArea Chat_Servidor;
     private javax.swing.JMenuBar MenuBarPrincipal;
-    private javax.swing.JMenu MenuBuscar;
-    private javax.swing.JMenu MenuFacturacion;
-    private javax.swing.JMenu MenuReportes;
+    public javax.swing.JMenu MenuReportes;
     public javax.swing.JButton btBloquear;
     public javax.swing.JButton btDesbloquear;
     public javax.swing.JButton btDetenerServidor;
@@ -366,23 +351,20 @@ public class PantallaPrincipal extends javax.swing.JFrame  {
     public javax.swing.JButton btFacturar;
     public javax.swing.JButton btIniciarServidor;
     public javax.swing.JButton btLimpiarPantalla;
-    public javax.swing.JButton btUsuariosEnLinea;
     private javax.swing.JButton jButton1;
-    private javax.swing.JMenu jMenu13;
-    private javax.swing.JMenu jMenu14;
-    private javax.swing.JMenu jMenu16;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem3;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTPC;
-    private javax.swing.JMenuItem menuFacturar;
+    public javax.swing.JMenuItem mReporteArticulos;
+    public javax.swing.JMenuItem mReporteClientes;
+    public javax.swing.JMenuItem mReporteFacturas;
+    public javax.swing.JMenuItem mReporteProveedores;
     public javax.swing.JMenuItem menuManteArtProv;
     public javax.swing.JMenuItem menuManteArticulo;
     public javax.swing.JMenuItem menuManteCliente;
