@@ -183,9 +183,10 @@ public class PantallaPrincipalControlador implements ActionListener {
         }
 
         if (e.getSource() == PantallaPrinView.btDesbloquear) {
-            try {
-                int fila = PantallaPrinView.jTPC.getSelectedRow();
-                if (fila != -1) {
+
+            int fila = PantallaPrinView.jTPC.getSelectedRow();
+            if (fila != -1) {
+                try {
                     String ipSeleccionada = PantallaPrinView.jTPC.getValueAt(fila, 1).toString();
                     String nombrePCSeleccionado = PantallaPrinView.jTPC.getValueAt(fila, 0).toString();
 
@@ -197,7 +198,7 @@ public class PantallaPrincipalControlador implements ActionListener {
                     for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
                         //se optiene la IP del sokect para compararla con la seleccionada
                         String ipCliente = cliente.getSock().getInetAddress().toString();
-                        if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
+                        if (ipCliente.equals("/" + ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
                             Calendar c = Calendar.getInstance();
                             cliente.setHoInicio(Integer.toString(c.get(Calendar.HOUR)) + ":" + Integer.toString(c.get(Calendar.MINUTE)));
                             cliente.setEstadoActivo(true);
@@ -211,9 +212,11 @@ public class PantallaPrincipalControlador implements ActionListener {
                             writer.flush();
                         }
                     }
-                }
-            } catch (Exception el) {
+                } catch (Exception el) {
 
+                }
+            } else {
+                JOptionPane.showMessageDialog(PantallaPrinView, "Debe seleccionar una pc para ejecutar la accion.", "Error", JOptionPane.ERROR_MESSAGE);
             }
             llenarTabla();
         }
@@ -254,7 +257,7 @@ public class PantallaPrincipalControlador implements ActionListener {
                     for (ClienteHilo cliente : listaClientes) {
                         //se optiene la IP del sokect para compararla con la seleccionada
                         String ipCliente = cliente.getSock().getInetAddress().toString();
-                        if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
+                        if (ipCliente.equals("/" + ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
                             //si el sokect es la tiene la ip seleccionada
                             //se le envia un mensaje
 
@@ -267,6 +270,8 @@ public class PantallaPrincipalControlador implements ActionListener {
                 } catch (Exception el) {
 
                 }
+            } else {
+                JOptionPane.showMessageDialog(PantallaPrinView, "Debe seleccionar una pc para ejecutar la accion.", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -287,7 +292,7 @@ public class PantallaPrincipalControlador implements ActionListener {
                     for (PantallaPrincipalControlador.ClienteHilo cliente : listaClientes) {
                         //se optiene la IP del sokect para compararla con la seleccionada
                         String ipCliente = cliente.getSock().getInetAddress().toString();
-                        if (ipCliente.equals(ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
+                        if (ipCliente.equals("/" + ipSeleccionada) && cliente.getNombrePC().endsWith(nombrePCSeleccionado)) {
                             //si el sokect es la tiene la ip seleccionada
                             //se le envia un mensaje
                             Calendar c = Calendar.getInstance();
@@ -302,6 +307,8 @@ public class PantallaPrincipalControlador implements ActionListener {
                 } catch (Exception el) {
 
                 }
+            } else {
+                JOptionPane.showMessageDialog(PantallaPrinView, "Debe seleccionar una pc para ejecutar la accion.", "Error", JOptionPane.ERROR_MESSAGE);
             }
             llenarTabla();
         }
